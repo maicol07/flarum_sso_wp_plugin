@@ -4,8 +4,9 @@
 	"description": "Plugin for your WP website to get the SSO extension working",
 	"main": "gulpfile.js",
 	"scripts": {
-		"build": " i18n make-pot && gulp",
-		"wp_dist": "gulp zip"
+		"build": "wp i18n make-pot . languages/flarum_sso_plugin.pot && gulp",
+		"wp_dist": "gulp zip",
+        "release": "yarn run build && yarn run wp_dist"
 	},
 	"repository": {
 		"type": "git",
@@ -22,5 +23,11 @@
 	"bugs": {
 		"url": "https://bugs.maicol07.it/projects/0b8fae6e-4c8e-4b34-8fff-9bac316e4edc"
 	},
-	"homepage": "https://github.com/maicol07/flarum_sso_wp_plugin#readme"
+	"homepage": "https://github.com/maicol07/flarum_sso_wp_plugin#readme",
+	"dependencies": {
+		"gulp": "^4.0.2",
+		"gulp-clean": "^0.4.0",
+		"gulp-zip": "^5.0.1",
+		"merge-stream": "^2.0.0"
+	}
 }

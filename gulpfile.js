@@ -1,12 +1,12 @@
-const {series} = require('gulp');
+const gulp = require('gulp');
 var clean = require('gulp-clean');
 var zip = require('gulp-zip');
 var merge = require('merge-stream');
 
 function clean_files() {
-	var build = gulp.src('build', {read: false})
+	var build = gulp.src('build', {read: false, allowEmpty: true})
 		.pipe(clean());
-	var dist = gulp.src('dist', {read: false})
+	var dist = gulp.src('dist', {read: false, allowEmpty: true})
 		.pipe(clean());
 
 	return merge(build, dist);
@@ -27,5 +27,5 @@ function wp_zip() {
 		.pipe(gulp.dest('dist'));
 }
 
-exports.default = series(clean_files, wp_build)
-exports.zip = series(clean_files, wp_build, wp_zip);
+exports.default = gulp.series(clean_files, wp_build)
+exports.zip = gulp.series(clean_files, wp_build, wp_zip);
