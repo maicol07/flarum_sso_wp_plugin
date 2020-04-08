@@ -15,14 +15,17 @@ function clean_files() {
 function wp_build() {
 	var src = gulp.src('../src/**')
 		.pipe(gulp.dest('build/includes/src'));
-	var wp = gulp.src('**')
-		.pipe(gulp.dest('build/'));
+	var wp = gulp.src([
+	    '**',
+        '!**/node_modules/',
+        '!**/node_modules/**/*'
+    ]).pipe(gulp.dest('build/'));
 
 	return merge(src, wp);
 }
 
 function wp_zip() {
-	return gulp.src('build/*')
+	return gulp.src('build/**')
 		.pipe(zip('flarum_sso_wp_plugin.zip'))
 		.pipe(gulp.dest('dist'));
 }
