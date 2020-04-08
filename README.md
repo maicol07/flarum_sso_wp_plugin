@@ -1,4 +1,4 @@
-# flarum_sso_wp_plugin
+# Flarum SSO WordPress plugin
 WordPress plugin to get Flarum SSO working
 
 ## Documentation
