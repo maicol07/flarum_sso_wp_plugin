@@ -22,7 +22,7 @@
  * @link       https://maicol07.it
  * @since      1.0.0
  *
- * @package    Flarum_sso_plugin
+ * @package    Sso_flarum_plugin
  */
 
 // If uninstall not called from WordPress, then exit.

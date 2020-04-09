@@ -8,8 +8,8 @@
  * @link       https://maicol07.it
  * @since      1.0.0
  *
- * @package    Flarum_sso_plugin
- * @subpackage Flarum_sso_plugin/public/partials
+ * @package    Sso_flarum_plugin
+ * @subpackage Sso_flarum_plugin/public/partials
  */
 ?>
 

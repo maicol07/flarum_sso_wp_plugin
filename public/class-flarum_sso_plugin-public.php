@@ -6,8 +6,8 @@
  * @link       https://maicol07.it
  * @since      1.0.0
  *
- * @package    Flarum_sso_plugin
- * @subpackage Flarum_sso_plugin/public
+ * @package    Sso_flarum_plugin
+ * @subpackage Sso_flarum_plugin/public
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the public-facing stylesheet and JavaScript.
  *
- * @package    Flarum_sso_plugin
- * @subpackage Flarum_sso_plugin/public
+ * @package    Sso_flarum_plugin
+ * @subpackage Sso_flarum_plugin/public
  * @author     maicol07 <maicolbattistini@live.it>
  */
-class Flarum_sso_plugin_Public {
+class Sso_flarum_plugin_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -65,15 +65,15 @@ class Flarum_sso_plugin_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Flarum_sso_plugin_Loader as all of the hooks are defined
+		 * defined in Sso_flarum_plugin_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Flarum_sso_plugin_Loader will then create the relationship
+		 * The Sso_flarum_plugin_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/flarum_sso_plugin-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/sso_flarum_plugin-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -88,15 +88,15 @@ class Flarum_sso_plugin_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Flarum_sso_plugin_Loader as all of the hooks are defined
+		 * defined in Sso_flarum_plugin_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Flarum_sso_plugin_Loader will then create the relationship
+		 * The Sso_flarum_plugin_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/flarum_sso_plugin-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/sso_flarum_plugin-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 

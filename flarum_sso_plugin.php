@@ -10,18 +10,18 @@
  *
  * @link              https://maicol07.it
  * @since             1.0.0
- * @package           Flarum_sso_plugin
+ * @package           Sso_flarum_plugin
  *
  * @wordpress-plugin
- * Plugin Name:       Flarum SSO plugin
+ * Plugin Name:       SSO for Flarum
  * Plugin URI:        https://github.com/maicol07/flarum-sso-plugin
- * Description:       Plugin for your PHP website to get the SSO extension working
+ * Description:       Plugin for your WordPress website to get the SSO extension working
  * Version:           1.0.0
  * Author:            maicol07
  * Author URI:        https://maicol07.it
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       flarum_sso_plugin
+ * Text Domain:       sso_flarum_plugin
  * Domain Path:       /languages
  */
 
@@ -38,27 +38,27 @@ define( 'FLARUM_SSO_PLUGIN_VERSION', '1.0.0' );
 /**
  * The code that runs during plugin activation.
  */
-function activate_flarum_sso_plugin() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-flarum_sso_plugin-activator.php';
-	Flarum_sso_plugin_Activator::activate();
+function activate_sso_flarum_plugin() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-sso_flarum_plugin-activator.php';
+	Sso_flarum_plugin_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
  */
-function deactivate_flarum_sso_plugin() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-flarum_sso_plugin-deactivator.php';
-	Flarum_sso_plugin_Deactivator::deactivate();
+function deactivate_sso_flarum_plugin() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-sso_flarum_plugin-deactivator.php';
+	Sso_flarum_plugin_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_flarum_sso_plugin' );
-register_deactivation_hook( __FILE__, 'deactivate_flarum_sso_plugin' );
+register_activation_hook( __FILE__, 'activate_sso_flarum_plugin' );
+register_deactivation_hook( __FILE__, 'deactivate_sso_flarum_plugin' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-flarum_sso_plugin.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-sso_flarum_plugin.php';
 
 /**
  * Begins execution of the plugin.
@@ -69,12 +69,12 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-flarum_sso_plugin.php';
  *
  * @since    1.0.0
  */
-function run_flarum_sso_plugin() {
-	$plugin = new Flarum_sso_plugin();
+function run_sso_flarum_plugin() {
+	$plugin = new Sso_flarum_plugin();
 	$plugin->run();
 }
 
-run_flarum_sso_plugin();
+run_sso_flarum_plugin();
 
 /**
  * Adds settings and donate links to plugins page
@@ -83,15 +83,15 @@ run_flarum_sso_plugin();
  *
  * @return mixed
  */
-function flarum_sso_plugin_add_links_to_admin_plugins_page( $links ) {
+function sso_flarum_plugin_add_links_to_admin_plugins_page( $links ) {
 	$donate_url  = esc_url( 'https://www.paypal.me/maicol072001/10eur' );
-	$donate_link = '<a href="' . $donate_url . '">' . __( "Donate", 'flarum_sso_plugin' ) . '</a>'; //DONATE
+	$donate_link = '<a href="' . $donate_url . '">' . __( "Donate", 'sso_flarum_plugin' ) . '</a>'; //DONATE
 
 	// Prepend donate link to links array
 	array_unshift( $links, $donate_link );
 
-	$url           = esc_url( get_admin_url() . 'options-general.php?page=flarum_sso_plugin-settings' );
-	$settings_link = '<a href="' . $url . '">' . __( "Settings", 'flarum_sso_plugin' ) . '</a>';
+	$url           = esc_url( get_admin_url() . 'options-general.php?page=sso_flarum_plugin-settings' );
+	$settings_link = '<a href="' . $url . '">' . __( "Settings", 'sso_flarum_plugin' ) . '</a>';
 
 	// Prepend settings link to links array
 	array_unshift( $links, $settings_link );
@@ -99,7 +99,7 @@ function flarum_sso_plugin_add_links_to_admin_plugins_page( $links ) {
 	return $links;
 }
 
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'flarum_sso_plugin_add_links_to_admin_plugins_page' );
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'sso_flarum_plugin_add_links_to_admin_plugins_page' );
 
 /**
  * Adds settings and donate links to plugin meta data in plugins page
@@ -109,17 +109,17 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'flarum_sso_pl
  *
  * @return array
  */
-function flarum_sso_plugin_add_meta_to_admin_plugins_page( $links, $file ) {
+function sso_flarum_plugin_add_meta_to_admin_plugins_page( $links, $file ) {
 	if ( strpos( $file, plugin_basename( __FILE__ ) ) !== false ) {
 		$donate_url = esc_url( 'https://www.paypal.me/maicol072001/10eur' );
 
-		$url = esc_url( get_admin_url() . 'options-general.php?page=flarum_sso_plugin-settings' );
+		$url = esc_url( get_admin_url() . 'options-general.php?page=sso_flarum_plugin-settings' );
 
-		$review_url = esc_url( "https://wordpress.org/support/plugin/flarum_sso_plugin/reviews/#new-post" );
+		$review_url = esc_url( "https://wordpress.org/support/plugin/sso_flarum_plugin/reviews/#new-post" );
 		$new_links  = [
-			'<a href="' . $url . '"><span class="dashicons dashicons-admin-generic"></span> ' . __( "Settings", 'flarum_sso_plugin' ) . '</a>',
-			'<a href="' . $review_url . '"><span class="dashicons dashicons-star-filled"></span> ' . __( "Leave a review", 'flarum_sso_plugin' ) . '</a>',
-			'<a href="' . $donate_url . '"><span class="dashicons dashicons-heart"></span> ' . __( "Donate", 'flarum_sso_plugin' ) . '</a>'
+			'<a href="' . $url . '"><span class="dashicons dashicons-admin-generic"></span> ' . __( "Settings", 'sso_flarum_plugin' ) . '</a>',
+			'<a href="' . $review_url . '"><span class="dashicons dashicons-star-filled"></span> ' . __( "Leave a review", 'sso_flarum_plugin' ) . '</a>',
+			'<a href="' . $donate_url . '"><span class="dashicons dashicons-heart"></span> ' . __( "Donate", 'sso_flarum_plugin' ) . '</a>'
 		];
 		// Add new links to existing links
 		$links = array_merge( $links, $new_links );
@@ -128,7 +128,7 @@ function flarum_sso_plugin_add_meta_to_admin_plugins_page( $links, $file ) {
 	return $links;
 }
 
-add_filter( 'plugin_row_meta', 'flarum_sso_plugin_add_meta_to_admin_plugins_page', 10, 2 );
+add_filter( 'plugin_row_meta', 'sso_flarum_plugin_add_meta_to_admin_plugins_page', 10, 2 );
 
 /*
  * SSO
@@ -137,14 +137,14 @@ require_once plugin_dir_path( __FILE__ ) . "vendor/autoload.php";
 
 use Maicol07\SSO\Flarum;
 
-if ( get_option( 'flarum_sso_plugin_active' ) ) {
+if ( get_option( 'sso_flarum_plugin_active' ) ) {
 	$flarum = new Flarum(
-		get_option( 'flarum_sso_plugin_flarum_url' ),
-		get_option( 'flarum_sso_plugin_root_domain' ),
-		get_option( 'flarum_sso_plugin_api_key' ),
-		get_option( 'flarum_sso_plugin_password_token' ),
-		get_option( 'flarum_sso_plugin_lifetime', 14 ),
-		get_option( 'flarum_sso_plugin_insecure', false )
+		get_option( 'sso_flarum_plugin_flarum_url' ),
+		get_option( 'sso_flarum_plugin_root_domain' ),
+		get_option( 'sso_flarum_plugin_api_key' ),
+		get_option( 'sso_flarum_plugin_password_token' ),
+		get_option( 'sso_flarum_plugin_lifetime', 14 ),
+		get_option( 'sso_flarum_plugin_insecure', false )
 	);
 
 	/**
@@ -220,7 +220,7 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 
 	add_action( 'delete_user', 'flarum_sso_delete_user', 10 );
 
-	if ( get_option( 'flarum_sso_plugin_pro_active' ) ) {
+	if ( get_option( 'sso_flarum_plugin_pro_active' ) ) {
 		function pro_cron( $schedules ) {
 			$schedules['every_month'] = array(
 				'interval' => 60 * 60 * 24 * 30,
@@ -230,26 +230,26 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 		add_filter( 'cron_schedules', 'pro_cron' );
 
 		function flarum_sso_check_pro() {
-			$r = Requests::post( 'https://' . get_option( 'flarum_sso_plugin_verification_server', 'maicol07.it' ) . '/flarum_sso/wp_check.php',
+			$r = Requests::post( 'https://' . get_option( 'sso_flarum_plugin_verification_server', 'maicol07.it' ) . '/flarum_sso/wp_check.php',
 				[], [
-					'sub_id' => get_option( 'flarum_sso_plugin_pro_key' ),
+					'sub_id' => get_option( 'sso_flarum_plugin_pro_key' ),
 					'url'    => get_site_url()
-				], get_option( 'flarum_sso_plugin_insecure' ) ? [ 'verify' => false ] : [] );
+				], get_option( 'sso_flarum_plugin_insecure' ) ? [ 'verify' => false ] : [] );
 			$response = json_decode($r->body);
 			if ($r->success and $response->success) {
 				switch ($response->status) {
 					case 'ACTIVE':
-						update_option('flarum_sso_plugin_pro_active', true);
+						update_option('sso_flarum_plugin_pro_active', true);
 						break;
 					default:
-						update_option('flarum_sso_plugin_pro_active', false);
+						update_option('sso_flarum_plugin_pro_active', false);
 						break;
 				}
 			}
 		}
-		add_action( 'flarum_sso_plugin_cron_hook', 'flarum_sso_check_pro' );
-		if ( ! wp_next_scheduled( 'flarum_sso_plugin_cron_hook' ) ) {
-			wp_schedule_event( time(), 'every_month', 'flarum_sso_plugin_cron_hook' );
+		add_action( 'sso_flarum_plugin_cron_hook', 'flarum_sso_check_pro' );
+		if ( ! wp_next_scheduled( 'sso_flarum_plugin_cron_hook' ) ) {
+			wp_schedule_event( time(), 'every_month', 'sso_flarum_plugin_cron_hook' );
 		}
 
 		if (!function_exists('is_plugin_active')) {
