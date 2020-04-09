@@ -8,14 +8,15 @@ Stable tag: 4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Plugin for your PHP website to get the Flarum SSO extension working
+Plugin for your WordPress website to get the Flarum SSO extension working
 
 == Description ==
-Plugin for your PHP website to get the Flarum SSO extension working
+Plugin for your WordPress website to get the Flarum SSO extension working
 
 ## Requirements
 - PHP 7.0+
 - [Flarum SSO Extension](https://github.com/maicol07/flarum-ext-sso) installed on your Flarum
+- JSON and CURL extensions installed on PHP
 
 ## Pre-installation
 
@@ -28,7 +29,7 @@ You only need to set the `key` column and the `user_id` one. In the first one wr
 
 == Installation ==
 
-1. Upload `flarum_sso_plugin.php` to the `/wp-content/plugins/` directory
+1. Upload `flarum_sso_plugin.zip` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Configure the plugin via the 'Settings' menu in WordPress
 
