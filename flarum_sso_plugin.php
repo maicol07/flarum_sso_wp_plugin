@@ -90,7 +90,7 @@ function flarum_sso_plugin_add_links_to_admin_plugins_page( $links ) {
 	// Prepend donate link to links array
 	array_unshift( $links, $donate_link );
 
-	$url           = esc_url( get_admin_url() . 'options-general.php?page=flarum_sso_plugin' );
+	$url           = esc_url( get_admin_url() . 'options-general.php?page=flarum_sso_plugin-settings' );
 	$settings_link = '<a href="' . $url . '">' . __( "Settings", 'flarum_sso_plugin' ) . '</a>';
 
 	// Prepend settings link to links array
@@ -113,7 +113,7 @@ function flarum_sso_plugin_add_meta_to_admin_plugins_page( $links, $file ) {
 	if ( strpos( $file, plugin_basename( __FILE__ ) ) !== false ) {
 		$donate_url = esc_url( 'https://www.paypal.me/maicol072001/10eur' );
 
-		$url = esc_url( get_admin_url() . 'options-general.php?page=flarum_sso_plugin' );
+		$url = esc_url( get_admin_url() . 'options-general.php?page=flarum_sso_plugin-settings' );
 
 		$review_url = esc_url( "https://wordpress.org/support/plugin/flarum_sso_plugin/reviews/#new-post" );
 		$new_links  = [
