@@ -6,8 +6,8 @@
  * @link       https://maicol07.it
  * @since      1.0.0
  *
- * @package    Sso_flarum_plugin
- * @subpackage Sso_flarum_plugin/includes
+ * @package    sso-flarum
+ * @subpackage sso-flarum/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Sso_flarum_plugin
- * @subpackage Sso_flarum_plugin/includes
+ * @package    sso-flarum
+ * @subpackage sso-flarum/includes
  * @author     maicol07 <maicolbattistini@live.it>
  */
-class Sso_flarum_plugin_Loader {
+class Flarum_sso_plugin_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

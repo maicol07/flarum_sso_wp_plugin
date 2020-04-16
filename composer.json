@@ -1,5 +1,5 @@
 {
-  "name": "maicol07/sso_flarum_plugin_wp",
+  "name": "maicol07/flarum_sso_plugin_wp",
   "description": "WordPress plugin to get Flarum SSO working",
   "type": "project",
   "require": {

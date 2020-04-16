@@ -6,8 +6,8 @@
  * @link       https://maicol07.it
  * @since      1.0.0
  *
- * @package    Sso_flarum_plugin
- * @subpackage Sso_flarum_plugin/includes
+ * @package    sso-flarum
+ * @subpackage sso-flarum/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Sso_flarum_plugin
- * @subpackage Sso_flarum_plugin/includes
+ * @package    sso-flarum
+ * @subpackage sso-flarum/includes
  * @author     maicol07 <maicolbattistini@live.it>
  */
-class Sso_flarum_plugin_Deactivator {
+class Flarum_sso_plugin_Deactivator {
 
 	/**
 	 * Short Description. (use period)

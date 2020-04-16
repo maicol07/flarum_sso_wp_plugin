@@ -29,7 +29,7 @@ You only need to set the `key` column and the `user_id` one. In the first one wr
 
 == Installation ==
 
-1. Upload `sso_flarum_plugin.zip` to the `/wp-content/plugins/` directory
+1. Upload `sso-flarum.zip` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Configure the plugin via the 'Settings' menu in WordPress
 

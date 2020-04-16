@@ -9,8 +9,8 @@
  * @link       https://maicol07.it
  * @since      1.0.0
  *
- * @package    Sso_flarum_plugin
- * @subpackage Sso_flarum_plugin/includes
+ * @package    sso-flarum
+ * @subpackage sso-flarum/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Sso_flarum_plugin
- * @subpackage Sso_flarum_plugin/includes
+ * @package    sso-flarum
+ * @subpackage sso-flarum/includes
  * @author     maicol07 <maicolbattistini@live.it>
  */
-class Sso_flarum_plugin_i18n {
+class Flarum_sso_plugin_i18n {
 
 
 	/**
@@ -35,7 +35,7 @@ class Sso_flarum_plugin_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'sso_flarum_plugin',
+			'sso-flarum',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);

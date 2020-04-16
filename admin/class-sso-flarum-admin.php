@@ -6,8 +6,8 @@
  * @link       https://maicol07.it
  * @since      1.0.0
  *
- * @package    Sso_flarum_plugin
- * @subpackage Sso_flarum_plugin/admin
+ * @package    sso-flarum
+ * @subpackage sso-flarum/admin
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Sso_flarum_plugin
- * @subpackage Sso_flarum_plugin/admin
+ * @package    sso-flarum
+ * @subpackage sso-flarum/admin
  * @author     maicol07 <maicolbattistini@live.it>
  */
-class Sso_flarum_plugin_Admin {
+class Flarum_sso_plugin_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -59,8 +59,8 @@ class Sso_flarum_plugin_Admin {
 	 * Adds settings menu entry
 	 */
 	public function addPluginAdminMenu() {
-		add_submenu_page( 'options-general.php', __( 'Flarum SSO Plugin Settings', 'sso_flarum_plugin' ),
-			__( 'Flarum SSO plugin', 'sso_flarum_plugin' ), 'administrator', $this->plugin_name . '-settings', array(
+		add_submenu_page( 'options-general.php', __( 'Flarum SSO Plugin Settings', 'sso-flarum' ),
+			__( 'Flarum SSO plugin', 'sso-flarum' ), 'administrator', $this->plugin_name . '-settings', array(
 				$this,
 				'displayPluginAdminSettings'
 			) );
@@ -87,9 +87,9 @@ class Sso_flarum_plugin_Admin {
 	public function FlarumSSOPluginSettingsMessages( $error_message ) {
 		switch ( $error_message ) {
 			case '1':
-				$message       = __( 'There was an error adding this setting. Please try again.  If this persists, shoot us an email.', 'sso_flarum_plugin' );
-				$err_code      = esc_attr( 'sso_flarum_plugin_example_setting' );
-				$setting_field = 'sso_flarum_plugin_example_setting';
+				$message       = __( 'There was an error adding this setting. Please try again.  If this persists, shoot us an email.', 'sso-flarum' );
+				$err_code      = esc_attr( 'flarum_sso_plugin_example_setting' );
+				$setting_field = 'flarum_sso_plugin_example_setting';
 				break;
 		}
 		$type = 'error';
@@ -112,103 +112,103 @@ class Sso_flarum_plugin_Admin {
 		 */
 		add_settings_section(
 		// ID used to identify this section and with which to register options
-			'sso_flarum_plugin_general_section',
+			'flarum_sso_plugin_general_section',
 			// Title to be displayed on the administration page
 			'',
 			// Callback used to render the description of the section
-			array( $this, 'sso_flarum_plugin_display_general_account' ),
+			array( $this, 'flarum_sso_plugin_display_general_account' ),
 			// Page on which to add this section of options
-			'sso_flarum_plugin_general_settings'
+			'flarum_sso_plugin_general_settings'
 		);
 		unset( $args );
 		$fields = [
 			[
 				'type'             => 'input',
 				'subtype'          => 'checkbox',
-				'id'               => 'sso_flarum_plugin_active',
-				'name'             => 'sso_flarum_plugin_active',
+				'id'               => 'flarum_sso_plugin_active',
+				'name'             => 'flarum_sso_plugin_active',
 				'required'         => 'true',
 				'get_options_list' => '',
 				'value_type'       => 'normal',
 				'wp_data'          => 'option',
-				'label'            => __( 'Enable SSO', 'sso_flarum_plugin' )
+				'label'            => __( 'Enable SSO', 'sso-flarum' )
 			],
 			[
 				'type'             => 'input',
 				'subtype'          => 'text',
-				'id'               => 'sso_flarum_plugin_flarum_url',
-				'name'             => 'sso_flarum_plugin_flarum_url',
+				'id'               => 'flarum_sso_plugin_flarum_url',
+				'name'             => 'flarum_sso_plugin_flarum_url',
 				'required'         => 'true',
 				'get_options_list' => '',
 				'value_type'       => 'normal',
 				'wp_data'          => 'option',
-				'label'            => __( 'Flarum URL', 'sso_flarum_plugin' )
+				'label'            => __( 'Flarum URL', 'sso-flarum' )
 			],
 			[
 				'type'             => 'input',
 				'subtype'          => 'text',
-				'id'               => 'sso_flarum_plugin_root_domain',
-				'name'             => 'sso_flarum_plugin_root_domain',
+				'id'               => 'flarum_sso_plugin_root_domain',
+				'name'             => 'flarum_sso_plugin_root_domain',
 				'required'         => 'true',
 				'get_options_list' => '',
 				'value_type'       => 'normal',
 				'wp_data'          => 'option',
-				'label'            => __( 'Root Domain', 'sso_flarum_plugin' )
+				'label'            => __( 'Root Domain', 'sso-flarum' )
 			],
 			[
 				'type'             => 'input',
 				'subtype'          => 'text',
-				'id'               => 'sso_flarum_plugin_api_key',
-				'name'             => 'sso_flarum_plugin_api_key',
+				'id'               => 'flarum_sso_plugin_api_key',
+				'name'             => 'flarum_sso_plugin_api_key',
 				'required'         => 'true',
 				'get_options_list' => '',
 				'value_type'       => 'normal',
 				'wp_data'          => 'option',
-				'label'            => __( 'API Key', 'sso_flarum_plugin' )
+				'label'            => __( 'API Key', 'sso-flarum' )
 			],
 			[
 				'type'             => 'input',
 				'subtype'          => 'text',
-				'id'               => 'sso_flarum_plugin_password_token',
-				'name'             => 'sso_flarum_plugin_password_token',
+				'id'               => 'flarum_sso_plugin_password_token',
+				'name'             => 'flarum_sso_plugin_password_token',
 				'required'         => 'true',
 				'get_options_list' => '',
 				'value_type'       => 'normal',
 				'wp_data'          => 'option',
-				'label'            => __( 'Password Token', 'sso_flarum_plugin' )
+				'label'            => __( 'Password Token', 'sso-flarum' )
 			],
 			[
 				'type'             => 'input',
 				'subtype'          => 'text',
-				'id'               => 'sso_flarum_plugin_lifetime',
-				'name'             => 'sso_flarum_plugin_lifetime',
+				'id'               => 'flarum_sso_plugin_lifetime',
+				'name'             => 'flarum_sso_plugin_lifetime',
 				'required'         => 'true',
 				'get_options_list' => '',
 				'value_type'       => 'normal',
 				'wp_data'          => 'option',
-				'label'            => __( 'Token Lifetime', 'sso_flarum_plugin' ),
+				'label'            => __( 'Token Lifetime', 'sso-flarum' ),
 			],
 			[
 				'type'             => 'input',
 				'subtype'          => 'text',
-				'id'               => 'sso_flarum_plugin_pro_key',
-				'name'             => 'sso_flarum_plugin_pro_key',
+				'id'               => 'flarum_sso_plugin_pro_key',
+				'name'             => 'flarum_sso_plugin_pro_key',
 				'required'         => 'true',
 				'get_options_list' => '',
 				'value_type'       => 'normal',
 				'wp_data'          => 'option',
-				'label'            => __( 'PRO features key', 'sso_flarum_plugin' ),
+				'label'            => __( 'PRO features key', 'sso-flarum' ),
 			],
 			[
 				'type'             => 'input',
 				'subtype'          => 'checkbox',
-				'id'               => 'sso_flarum_plugin_insecure',
-				'name'             => 'sso_flarum_plugin_insecure',
+				'id'               => 'flarum_sso_plugin_insecure',
+				'name'             => 'flarum_sso_plugin_insecure',
 				'required'         => 'true',
 				'get_options_list' => '',
 				'value_type'       => 'normal',
 				'wp_data'          => 'option',
-				'label'            => __( "Insecure mode (use only if you don't have a valid SSL certificate)", 'sso_flarum_plugin' ),
+				'label'            => __( "Insecure mode (use only if you don't have a valid SSL certificate)", 'sso-flarum' ),
 			],
 		];
 		// Default values
@@ -217,9 +217,9 @@ class Sso_flarum_plugin_Admin {
 			'root_domain' => get_site_url()
 		];
 		foreach ( $values as $option => $value ) {
-			if ( get_option( 'sso_flarum_plugin_' . $option ) === false ) // Nothing yet saved
+			if ( get_option( 'flarum_sso_plugin_' . $option ) === false ) // Nothing yet saved
 			{
-				update_option( 'sso_flarum_plugin_' . $option, $value );
+				update_option( 'flarum_sso_plugin_' . $option, $value );
 			}
 		}
 
@@ -227,15 +227,15 @@ class Sso_flarum_plugin_Admin {
 			add_settings_field(
 				$field['id'],
 				$field['label'],
-				array( $this, 'sso_flarum_plugin_render_settings_field' ),
-				'sso_flarum_plugin_general_settings',
-				'sso_flarum_plugin_general_section',
+				array( $this, 'flarum_sso_plugin_render_settings_field' ),
+				'flarum_sso_plugin_general_settings',
+				'flarum_sso_plugin_general_section',
 				$field
 			);
 
 
 			register_setting(
-				'sso_flarum_plugin_general_settings',
+				'flarum_sso_plugin_general_settings',
 				$field['id']
 			);
 		}
@@ -244,15 +244,15 @@ class Sso_flarum_plugin_Admin {
 	/**
 	 * Display message on plugin settings page
 	 */
-	public function sso_flarum_plugin_display_general_account() {
-		echo '<p>' . __( "These settings apply to all Flarum SSO Plugin functionality. To know more about something check the <a href='https://docs.maicol07.it/docs/en/sso_flarum_plugin/wpa/introduction'>docs</a>", "sso_flarum_plugin" ) . '</p>';
-		if ( ! empty( get_option( 'sso_flarum_plugin_pro_key' ) ) ) {
-			$r = Requests::post( 'https://' . get_option( 'sso_flarum_plugin_verification_server', 'maicol07.it' ) . '/flarum_sso/wp_check.php',
+	public function flarum_sso_plugin_display_general_account() {
+		echo '<p>' . __( "These settings apply to all Flarum SSO Plugin functionality. To know more about something check the <a href='https://docs.maicol07.it/docs/en/flarum_sso_plugin/wp/introduction'>docs</a>", "sso-flarum" ) . '</p>';
+		if ( ! empty( get_option( 'flarum_sso_plugin_pro_key' ) ) ) {
+			$r = Requests::post( 'https://' . get_option( 'flarum_sso_plugin_verification_server', 'maicol07.it' ) . '/flarum_sso/wp_check.php',
 				[], [
-					'sub_id'        => get_option( 'sso_flarum_plugin_pro_key' ),
+					'sub_id'        => get_option( 'flarum_sso_plugin_pro_key' ),
 					'url'           => get_site_url(),
 					'get_plan_name' => true
-				], get_option( 'sso_flarum_plugin_insecure' ) ? [ 'verify' => false ] : [] );
+				], get_option( 'flarum_sso_plugin_insecure' ) ? [ 'verify' => false ] : [] );
 			if ( $r->success ) {
 				$response = json_decode( $r->body );
 				if ( $response->success ) {
@@ -265,23 +265,23 @@ class Sso_flarum_plugin_Admin {
 									$response->used,
 									$response->total
 								) . "</p>";
-							update_option('sso_flarum_plugin_pro_active', true);
+							update_option('flarum_sso_plugin_pro_active', true);
 							break;
 						case 'EXPIRED':
 							// translators: %1s: PRO plan name; %2s: Expiry date
 							echo '<p style="color: red">' . sprintf( __( "Your %1s license is expired from %2s!" ), $response->plan_name,
 									date_i18n( get_option( 'date_format' ), $response->expiry_date ) ) . "</p>";
-							update_option('sso_flarum_plugin_pro_active', false);
+							update_option('flarum_sso_plugin_pro_active', false);
 							break;
 						case 'CANCELLED':
 							// translators: %s: PRO plan name
 							echo '<p style="color: red">' . sprintf( __( "Your %s license has been cancelled!" ), $response->plan_name ) . "</p>";
-							update_option('sso_flarum_plugin_pro_active', false);
+							update_option('flarum_sso_plugin_pro_active', false);
 							break;
 						default:
 							// translators: %1s: PRO plan name; %2s: Subscription status
 							echo '<p>' . sprintf( __( "Your %1s license is %2s!" ), $response->plan_name, $response->status ) . "</p>";
-							update_option('sso_flarum_plugin_pro_active', false);
+							update_option('flarum_sso_plugin_pro_active', false);
 							break;
 					}
 				} else {
@@ -296,7 +296,7 @@ class Sso_flarum_plugin_Admin {
 	 *
 	 * @param $args
 	 */
-	public function sso_flarum_plugin_render_settings_field( $args ) {
+	public function flarum_sso_plugin_render_settings_field( $args ) {
 		if ( $args['wp_data'] == 'option' ) {
 			$wp_data_value = get_option( $args['name'] );
 		} elseif ( $args['wp_data'] == 'post_meta' ) {
@@ -341,15 +341,15 @@ class Sso_flarum_plugin_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Sso_flarum_plugin_Loader as all of the hooks are defined
+		 * defined in Flarum_sso_plugin_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Sso_flarum_plugin_Loader will then create the relationship
+		 * The Flarum_sso_plugin_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/sso_flarum_plugin-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/sso-flarum-admin.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -362,14 +362,14 @@ class Sso_flarum_plugin_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Sso_flarum_plugin_Loader as all of the hooks are defined
+		 * defined in Flarum_sso_plugin_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Sso_flarum_plugin_Loader will then create the relationship
+		 * The Flarum_sso_plugin_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/sso_flarum_plugin-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/sso-flarum-admin.js', array( 'jquery' ), $this->version, false );
 	}
 
 }
