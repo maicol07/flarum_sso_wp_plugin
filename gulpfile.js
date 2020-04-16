@@ -31,4 +31,5 @@ function wp_zip() {
 }
 
 exports.default = gulp.series(clean_files, wp_build)
+exports.clean = clean_files
 exports.zip = gulp.series(clean_files, wp_build, wp_zip);
