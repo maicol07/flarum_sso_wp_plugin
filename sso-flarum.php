@@ -137,7 +137,7 @@ require_once plugin_dir_path( __FILE__ ) . "vendor/autoload.php";
 
 use Maicol07\SSO\Flarum;
 
-if ( get_option( 'flarum_sso_active' ) ) {
+if ( get_option( 'flarum_sso_plugin_active' ) ) {
 	$flarum = new Flarum(
 		get_option( 'flarum_sso_plugin_flarum_url' ),
 		get_option( 'flarum_sso_plugin_root_domain' ),
@@ -156,16 +156,14 @@ if ( get_option( 'flarum_sso_active' ) ) {
 	 *
 	 * @return string
 	 */
-	if (!function_exists('flarum_sso_login_redirect')) {
-		function flarum_sso_login_redirect( $redirect_to, $request, $user ) {
-			global $flarum;
+	function flarum_sso_login_redirect( $redirect_to, $request, $user ) {
+		global $flarum;
 
-			if ( $redirect_to === 'forum' && $user instanceof WP_User ) {
-				$flarum->redirectToForum();
-			}
-
-			return $redirect_to;
+		if ( $redirect_to === 'forum' && $user instanceof WP_User ) {
+			$flarum->redirectToForum();
 		}
+
+		return $redirect_to;
 	}
 
 	add_filter( 'login_redirect', 'flarum_sso_login_redirect', 10, 3 );
@@ -181,17 +179,15 @@ if ( get_option( 'flarum_sso_active' ) ) {
 	 *
 	 * @return WP_User|null
 	 */
-	if (!function_exists('flarum_sso_login')) {
-		function flarum_sso_login( $user, $username, $password, $groups = null ) {
-			if ( ! $user instanceof WP_User ) {
-				return null;
-			}
-			global $flarum;
-
-			$flarum->login( $username, $user->user_email, $password, $groups );
-
-			return $user;
+	function flarum_sso_login( $user, $username, $password, $groups = null ) {
+		if ( ! $user instanceof WP_User ) {
+			return null;
 		}
+		global $flarum;
+
+		$flarum->login( $username, $user->user_email, $password, $groups );
+
+		return $user;
 	}
 
 	add_filter( 'authenticate', 'flarum_sso_login', 35, 3 );
@@ -199,23 +195,19 @@ if ( get_option( 'flarum_sso_active' ) ) {
 	/**
 	 * Logout from Flarum
 	 */
-	if (!function_exists('flarum_sso_logout')) {
-		function flarum_sso_logout() {
-			global $flarum;
+	function flarum_sso_logout() {
+		global $flarum;
 
-			$flarum->logout();
-		}
+		$flarum->logout();
 	}
 
 	add_action( 'wp_logout', 'flarum_sso_logout' );
 
-	if (!function_exists('flarum_sso_delete_user')) {
-		function flarum_sso_delete_user( $user_id ) {
-			global $flarum;
+	function flarum_sso_delete_user( $user_id ) {
+		global $flarum;
 
-			$user = new WP_User( $user_id );
-			$flarum->delete( $user->user_login );
-		}
+		$user = new WP_User( $user_id );
+		$flarum->delete( $user->user_login );
 	}
 
 	add_action( 'delete_user', 'flarum_sso_delete_user', 10 );
