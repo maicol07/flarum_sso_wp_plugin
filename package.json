@@ -6,7 +6,7 @@
 	"scripts": {
 		"build": "wp i18n make-pot . languages/sso-flarum.pot && gulp",
 		"wp_dist": "gulp zip",
-        "release": "yarn run build && yarn run wp_dist"
+		"release": "yarn run build && yarn run wp_dist"
 	},
 	"repository": {
 		"type": "git",
@@ -27,7 +27,7 @@
 	"dependencies": {
 		"gulp": "^4.0.2",
 		"gulp-clean": "^0.4.0",
-		"gulp-zip": "^5.0.1",
+		"gulp-vinyl-zip": "^2.2.0",
 		"merge-stream": "^2.0.0"
 	}
 }

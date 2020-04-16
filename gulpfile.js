@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 var clean = require('gulp-clean');
-var zip = require('gulp-zip');
+var zip = require('gulp-vinyl-zip').zip;
 var merge = require('merge-stream');
 
 function clean_files() {
@@ -25,8 +25,8 @@ function wp_build() {
 }
 
 function wp_zip() {
-	return gulp.src('build/**')
-		.pipe(zip('flarum_sso_wp_plugin.zip'))
+	return gulp.src('build/**/*')
+		.pipe(zip('sso-flarum.zip'))
 		.pipe(gulp.dest('dist'));
 }
 
