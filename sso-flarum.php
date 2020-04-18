@@ -177,11 +177,11 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 	 * @param $password
 	 * @param null|array $groups
 	 *
-	 * @return WP_User|null
+	 * @return WP_Error|WP_User
 	 */
 	function flarum_sso_login( $user, $username, $password, $groups = null ) {
 		if ( ! $user instanceof WP_User ) {
-			return null;
+			return new WP_Error();
 		}
 		global $flarum;
 
