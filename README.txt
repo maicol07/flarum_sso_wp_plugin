@@ -51,15 +51,16 @@ If that didn't help, you can open a discussion on the [community](https://commun
 
 == Changelog ==
 = 1.1 =
-### ➕ New Features
+#### ➕ New Features
 - ❗️ Update user username, email or password on Flarum (check API documentation)
 - Set user groups on signup
 - ❗️ Plugin has been renamed, so follow the [upgrade](https://docs.maicol07.it/docs/en/flarum_sso/plugin/upgrade) instructions.
 - Memberpress Integration: change password, forgot password links now redirects to WP
 - Finally available in the WordPress Plugin Directory
-### ⭐️ Improvements
+#### ⭐️ Improvements
 - Code style improvements
-### 🐛 Fixes
+- Updated dependencies
+#### 🐛 Fixes
 - ❗️ Fixed the `not_authenticated` error (https://discuss.flarum.org/d/21666-single-sign-on-sso-with-wordpress-integration/157)
 - Fixed logout on Flarum (see [#FSSOE-1](https://bugs.maicol07.it/issue/FSSOE-1))
 - Other fixes

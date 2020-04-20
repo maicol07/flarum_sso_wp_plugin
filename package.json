@@ -1,6 +1,6 @@
 {
   "name": "flarum_sso_wp_plugin",
-  "version": "1.1",
+  "version": "1.1.0",
   "description": "Plugin for your WP website to get the SSO extension working",
   "main": "gulpfile.js",
   "scripts": {
