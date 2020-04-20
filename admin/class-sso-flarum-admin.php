@@ -265,23 +265,33 @@ class Flarum_sso_plugin_Admin {
 									$response->used,
 									$response->total
 								) . "</p>";
-							update_option('flarum_sso_plugin_pro_active', true);
+							update_option( 'flarum_sso_plugin_pro_active', true );
 							break;
 						case 'EXPIRED':
 							// translators: %1s: PRO plan name; %2s: Expiry date
 							echo '<p style="color: red">' . sprintf( __( "Your %1s license is expired from %2s!" ), $response->plan_name,
 									date_i18n( get_option( 'date_format' ), $response->expiry_date ) ) . "</p>";
-							update_option('flarum_sso_plugin_pro_active', false);
+							update_option( 'flarum_sso_plugin_pro_active', false );
+							break;
+						case 'FULL':
+							// translators: %1s: PRO plan name; %2s: Expiry date; %3d: Number of used sites in license; %4d: Number of total sites allowed by license
+							echo '<p style="color: darkorange">' . sprintf( __( "You are subscribed to the %1s until %2s and you are using %3d of %4d sites allowed by your license." ),
+									$response->plan_name,
+									date_i18n( get_option( 'date_format' ), $response->expiry_date ),
+									$response->used,
+									$response->total
+								) . "</p>";
+							update_option( 'flarum_sso_plugin_pro_active', false );
 							break;
 						case 'CANCELLED':
 							// translators: %s: PRO plan name
 							echo '<p style="color: red">' . sprintf( __( "Your %s license has been cancelled!" ), $response->plan_name ) . "</p>";
-							update_option('flarum_sso_plugin_pro_active', false);
+							update_option( 'flarum_sso_plugin_pro_active', false );
 							break;
 						default:
 							// translators: %1s: PRO plan name; %2s: Subscription status
 							echo '<p>' . sprintf( __( "Your %1s license is %2s!" ), $response->plan_name, $response->status ) . "</p>";
-							update_option('flarum_sso_plugin_pro_active', false);
+							update_option( 'flarum_sso_plugin_pro_active', false );
 							break;
 					}
 				} else {
