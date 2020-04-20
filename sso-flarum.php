@@ -16,7 +16,7 @@
  * Plugin Name:       SSO for Flarum
  * Plugin URI:        https://github.com/maicol07/flarum-sso-wp-plugin
  * Description:       Plugin for your WordPress website to get the SSO extension working
- * Version:           1.0.1
+ * Version:           1.1
  * Author:            maicol07
  * Author URI:        https://maicol07.it
  * License:           GPL-2.0+
@@ -33,7 +33,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'FLARUM_SSO_VERSION', '1.0.1' );
+define( 'FLARUM_SSO_VERSION', '1.1' );
 
 /**
  * The code that runs during plugin activation.
@@ -212,39 +212,51 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 
 	add_action( 'delete_user', 'flarum_sso_delete_user', 10 );
 
+	function flarum_sso_update_user_password( WP_User $user, string $password ) {
+		global $flarum;
+
+		$flarum->update( $user->user_login, $user->user_email, $password );
+	}
+
+	add_action( 'after_password_reset', 'flarum_sso_update_user_password', 10, 3 );
+
 	if ( get_option( 'flarum_sso_plugin_pro_active' ) ) {
 		function pro_cron( $schedules ) {
 			$schedules['every_month'] = array(
 				'interval' => 60 * 60 * 24 * 30,
-				'display'  => esc_html__( 'Every Month' ), );
+				'display'  => esc_html__( 'Every Month' ),
+			);
+
 			return $schedules;
 		}
+
 		add_filter( 'cron_schedules', 'pro_cron' );
 
 		function flarum_sso_check_pro() {
-			$r = Requests::post( 'https://' . get_option( 'flarum_sso_plugin_verification_server', 'maicol07.it' ) . '/flarum_sso/wp_check.php',
+			$r        = Requests::post( 'https://' . get_option( 'flarum_sso_plugin_verification_server', 'maicol07.it' ) . '/flarum_sso/wp_check.php',
 				[], [
 					'sub_id' => get_option( 'flarum_sso_plugin_pro_key' ),
 					'url'    => get_site_url()
 				], get_option( 'flarum_sso_plugin_insecure' ) ? [ 'verify' => false ] : [] );
-			$response = json_decode($r->body);
-			if ($r->success and $response->success) {
-				switch ($response->status) {
+			$response = json_decode( $r->body );
+			if ( $r->success and $response->success ) {
+				switch ( $response->status ) {
 					case 'ACTIVE':
-						update_option('flarum_sso_plugin_pro_active', true);
+						update_option( 'flarum_sso_plugin_pro_active', true );
 						break;
 					default:
-						update_option('flarum_sso_plugin_pro_active', false);
+						update_option( 'flarum_sso_plugin_pro_active', false );
 						break;
 				}
 			}
 		}
+
 		add_action( 'flarum_sso_plugin_cron_hook', 'flarum_sso_check_pro' );
 		if ( ! wp_next_scheduled( 'flarum_sso_plugin_cron_hook' ) ) {
 			wp_schedule_event( time(), 'every_month', 'flarum_sso_plugin_cron_hook' );
 		}
 
-		if (!function_exists('is_plugin_active')) {
+		if ( ! function_exists( 'is_plugin_active' ) ) {
 			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		}
 
@@ -257,20 +269,25 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 			 * @param $user
 			 */
 			function flarum_sso_login_pro( $user, $username, $password ) {
-				if (!$user instanceof WP_User) {
-					return $user;
+				if ( ! $user instanceof WP_User ) {
+					return new WP_Error();
 				}
 				global $wpdb;
 				// Membership integration
 				$r     = $wpdb->get_var( 'SELECT memberships FROM ' . $wpdb->prefix . 'mepr_members WHERE user_id=' . $user->ID . ';' );
 				$rs    = explode( ',', $r );
 				$roles = array_map( function ( $ri ) {
-					$p = get_post( $ri );
+					$p = get_post( trim( $ri ) );
+					if ( empty( $p ) ) {
+						return null;
+					}
+
 					return $p->post_title;
 				}, $rs );
 
 				return flarum_sso_login( $user, $username, $password, $roles );
 			}
+
 			remove_filter( 'authenticate', 'flarum_sso_login' );
 			add_filter( 'authenticate', 'flarum_sso_login_pro', 31, 3 );
 		}
