@@ -137,6 +137,14 @@ require_once plugin_dir_path( __FILE__ ) . "vendor/autoload.php";
 
 use Maicol07\SSO\Flarum;
 
+function print_wp_path_js() {
+	echo '<script>
+		WP_PATH = "' . get_site_url() . '";
+		</script>';
+}
+
+add_action( 'wp_head', 'print_wp_path_js' );
+
 if ( get_option( 'flarum_sso_plugin_active' ) ) {
 	$flarum = new Flarum(
 		get_option( 'flarum_sso_plugin_flarum_url' ),
@@ -267,6 +275,8 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 			 *
 			 * @param $user_login
 			 * @param $user
+			 *
+			 * @return WP_Error|WP_User
 			 */
 			function flarum_sso_login_pro( $user, $username, $password ) {
 				if ( ! $user instanceof WP_User ) {
@@ -290,6 +300,7 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 
 			remove_filter( 'authenticate', 'flarum_sso_login' );
 			add_filter( 'authenticate', 'flarum_sso_login_pro', 31, 3 );
+
 		}
 
 	}
