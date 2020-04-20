@@ -1,16 +1,16 @@
 {
-	"name": "flarum_sso_wp_plugin",
-	"version": "1.0.1",
-	"description": "Plugin for your WP website to get the SSO extension working",
-	"main": "gulpfile.js",
-	"scripts": {
-		"build": "gulp clean && wp i18n make-pot . languages/sso-flarum.pot && gulp",
-		"wp_dist": "gulp zip",
-		"release": "yarn run build && yarn run wp_dist"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/maicol07/flarum_sso_wp_plugin.git"
+  "name": "flarum_sso_wp_plugin",
+  "version": "1.1",
+  "description": "Plugin for your WP website to get the SSO extension working",
+  "main": "gulpfile.js",
+  "scripts": {
+    "build": "gulp clean && wp i18n make-pot . languages/sso-flarum.pot && gulp",
+    "wp_dist": "gulp zip",
+    "release": "composer update && yarn run build && yarn run wp_dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maicol07/flarum_sso_wp_plugin.git"
 	},
 	"keywords": [
 		"flarum",
