@@ -281,7 +281,7 @@ class Flarum_sso_plugin_Admin {
 									$response->used,
 									$response->total
 								) . "</p>";
-							update_option( 'flarum_sso_plugin_pro_active', false );
+							update_option( 'flarum_sso_plugin_pro_active', true );
 							break;
 						case 'CANCELLED':
 							// translators: %s: PRO plan name
