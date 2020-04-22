@@ -193,7 +193,7 @@ class Flarum_sso_plugin_Admin {
 				'subtype'          => 'text',
 				'id'               => 'flarum_sso_plugin_pro_key',
 				'name'             => 'flarum_sso_plugin_pro_key',
-				'required'         => 'true',
+				'required'         => 'false',
 				'get_options_list' => '',
 				'value_type'       => 'normal',
 				'wp_data'          => 'option',
@@ -204,17 +204,36 @@ class Flarum_sso_plugin_Admin {
 				'subtype'          => 'checkbox',
 				'id'               => 'flarum_sso_plugin_insecure',
 				'name'             => 'flarum_sso_plugin_insecure',
-				'required'         => 'true',
+				'required'         => 'false',
 				'get_options_list' => '',
 				'value_type'       => 'normal',
 				'wp_data'          => 'option',
 				'label'            => __( "Insecure mode (use only if you don't have a valid SSL certificate)", 'sso-flarum' ),
-			],
+			]
 		];
+
+		// PRO Options
+		if ( (bool) get_option( 'flarum_sso_plugin_pro_active' ) ) {
+			$fields = array_merge( $fields, [
+				[
+					'type'             => 'input',
+					'subtype'          => 'checkbox',
+					'id'               => 'flarum_sso_plugin_set_groups_admins',
+					'name'             => 'flarum_sso_plugin_set_groups_admins',
+					'required'         => 'false',
+					'get_options_list' => '',
+					'value_type'       => 'normal',
+					'wp_data'          => 'option',
+					'label'            => __( "Set groups also for admins", 'sso-flarum' ),
+				]
+			] );
+		}
+
 		// Default values
 		$values = [
-			'lifetime'    => 14,
-			'root_domain' => get_site_url()
+			'lifetime'          => 14,
+			'root_domain'       => get_site_url(),
+			'set_groups_admins' => '1'
 		];
 		foreach ( $values as $option => $value ) {
 			if ( get_option( 'flarum_sso_plugin_' . $option ) === false ) // Nothing yet saved
