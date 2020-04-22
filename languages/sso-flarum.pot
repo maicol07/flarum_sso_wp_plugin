@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-04-22T12:56:45+02:00\n"
+"POT-Creation-Date: 2020-04-22T15:35:48+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: sso-flarum\n"
@@ -78,11 +78,11 @@ msgstr ""
 msgid "Insecure mode (use only if you don't have a valid SSL certificate)"
 msgstr ""
 
-#: admin/class-sso-flarum-admin.php:238
+#: admin/class-sso-flarum-admin.php:227
 msgid "Set groups also for admins"
 msgstr ""
 
-#: admin/class-sso-flarum-admin.php:265
+#: admin/class-sso-flarum-admin.php:267
 msgid "These settings apply to all Flarum SSO Plugin functionality. To know more about something check the <a href='https://docs.maicol07.it/docs/en/flarum_sso_plugin/wp/introduction'>docs</a>"
 msgstr ""
 
