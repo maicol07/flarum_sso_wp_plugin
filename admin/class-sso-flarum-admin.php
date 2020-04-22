@@ -298,6 +298,8 @@ class Flarum_sso_plugin_Admin {
 					echo '<p style="color: red">' . __( "There was an error during license verification!" ) . "<br>{$response->error}</p>";
 				}
 			}
+		} else {
+			update_option( 'flarum_sso_plugin_pro_active', false );
 		}
 	}
 
