@@ -20,14 +20,14 @@
  * @subpackage sso-flarum/public
  * @author     maicol07 <maicolbattistini@live.it>
  */
-class Flarum_sso_plugin_Public {
+class Flarum_SSO_Public {
 
 	/**
 	 * The ID of this plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string $plugin_name The ID of this plugin.
 	 */
 	private $plugin_name;
 
@@ -43,14 +43,15 @@ class Flarum_sso_plugin_Public {
 	/**
 	 * Initialize the class and set its properties.
 	 *
+	 * @param string $plugin_name The name of the plugin.
+	 * @param string $version The version of this plugin.
+	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct( string $plugin_name, string $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 
 	}
 
@@ -59,7 +60,7 @@ class Flarum_sso_plugin_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles(): void {
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -73,7 +74,7 @@ class Flarum_sso_plugin_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/sso-flarum-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/sso-flarum-public.css', array(), $this->version );
 
 	}
 
@@ -82,7 +83,7 @@ class Flarum_sso_plugin_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts(): void {
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -96,7 +97,7 @@ class Flarum_sso_plugin_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/sso-flarum-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/sso-flarum-public.js', array( 'jquery' ), $this->version );
 
 	}
 

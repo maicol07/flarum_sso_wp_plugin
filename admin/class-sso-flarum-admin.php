@@ -10,6 +10,8 @@
  * @subpackage sso-flarum/admin
  */
 
+use Eastwest\Json\Json;
+
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -20,7 +22,7 @@
  * @subpackage sso-flarum/admin
  * @author     maicol07 <maicolbattistini@live.it>
  */
-class Flarum_sso_plugin_Admin {
+class Flarum_SSO_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -48,7 +50,7 @@ class Flarum_sso_plugin_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct( string $plugin_name, string $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 		add_action( 'admin_menu', array( $this, 'addPluginAdminMenu' ), 9 );
@@ -58,7 +60,7 @@ class Flarum_sso_plugin_Admin {
 	/**
 	 * Adds settings menu entry
 	 */
-	public function addPluginAdminMenu() {
+	public function addPluginAdminMenu(): void {
 		add_submenu_page( 'options-general.php', __( 'Flarum SSO Plugin Settings', 'sso-flarum' ),
 			__( 'Flarum SSO plugin', 'sso-flarum' ), 'administrator', $this->plugin_name . '-settings', array(
 				$this,
@@ -69,9 +71,9 @@ class Flarum_sso_plugin_Admin {
 	/**
 	 * Shows plugin admin settings
 	 */
-	public function displayPluginAdminSettings() {
+	public function displayPluginAdminSettings(): void {
 		// set this var to be used in the settings-display view
-		$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';
+		// $active_tab = $_GET['tab'] ?? 'general';
 		if ( isset( $_GET['error_message'] ) ) {
 			add_action( 'admin_notices', array( $this, 'flarumSSOPluginSettingsMessages' ) );
 			do_action( 'admin_notices', $_GET['error_message'] );
@@ -84,7 +86,7 @@ class Flarum_sso_plugin_Admin {
 	 *
 	 * @param $error_message
 	 */
-	public function FlarumSSOPluginSettingsMessages( $error_message ) {
+	/*public function FlarumSSOPluginSettingsMessages( $error_message ) {
 		switch ( $error_message ) {
 			case '1':
 				$message       = __( 'There was an error adding this setting. Please try again.  If this persists, shoot us an email.', 'sso-flarum' );
@@ -99,12 +101,12 @@ class Flarum_sso_plugin_Admin {
 			$message,
 			$type
 		);
-	}
+	}*/
 
 	/**
 	 * Adds settings fields
 	 */
-	public function registerAndBuildFields() {
+	public function registerAndBuildFields(): void {
 		/**
 		 * First, we add_settings_section. This is necessary since all future settings must belong to one.
 		 * Second, add_settings_field
@@ -263,7 +265,7 @@ class Flarum_sso_plugin_Admin {
 	/**
 	 * Display message on plugin settings page
 	 */
-	public function flarum_sso_plugin_display_general_account() {
+	public function flarum_sso_plugin_display_general_account(): void {
 		echo '<p>' . __( "These settings apply to all Flarum SSO Plugin functionality. To know more about something check the <a href='https://docs.maicol07.it/docs/en/flarum_sso_plugin/wp/introduction'>docs</a>", "sso-flarum" ) . '</p>';
 		if ( ! empty( get_option( 'flarum_sso_plugin_pro_key' ) ) ) {
 			$r = Requests::post( 'https://' . get_option( 'flarum_sso_plugin_verification_server', 'maicol07.it' ) . '/flarum_sso/wp_check.php',
@@ -273,7 +275,7 @@ class Flarum_sso_plugin_Admin {
 					'get_plan_name' => true
 				], get_option( 'flarum_sso_plugin_insecure' ) ? [ 'verify' => false ] : [] );
 			if ( $r->success ) {
-				$response = json_decode( $r->body );
+				$response = Json::decode( $r->body );
 				if ( $response->success ) {
 					switch ( $response->status ) {
 						case 'ACTIVE':
@@ -327,17 +329,18 @@ class Flarum_sso_plugin_Admin {
 	 *
 	 * @param $args
 	 */
-	public function flarum_sso_plugin_render_settings_field( $args ) {
-		if ( $args['wp_data'] == 'option' ) {
+	public function flarum_sso_plugin_render_settings_field( $args ): void {
+		if ( $args['wp_data'] === 'option' ) {
 			$wp_data_value = get_option( $args['name'] );
-		} elseif ( $args['wp_data'] == 'post_meta' ) {
+		} elseif ( $args['wp_data'] === 'post_meta' ) {
 			$wp_data_value = get_post_meta( $args['post_id'], $args['name'], true );
 		}
 
 		switch ( $args['type'] ) {
 			case 'input':
-				$value = ( $args['value_type'] == 'serialized' ) ? serialize( $wp_data_value ) : $wp_data_value;
-				if ( $args['subtype'] != 'checkbox' ) {
+				/** @noinspection PhpUndefinedVariableInspection */
+				$value = ( $args['value_type'] === 'serialized' ) ? serialize( $wp_data_value ) : $wp_data_value;
+				if ( $args['subtype'] !== 'checkbox' ) {
 					$prependStart = ( isset( $args['prepend_value'] ) ) ? '<div class="input-prepend"> <span class="add-on">' . $args['prepend_value'] . '</span>' : '';
 					$prependEnd   = ( isset( $args['prepend_value'] ) ) ? '</div>' : '';
 					$step         = ( isset( $args['step'] ) ) ? 'step="' . $args['step'] . '"' : '';
@@ -367,7 +370,7 @@ class Flarum_sso_plugin_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles(): void {
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -380,7 +383,7 @@ class Flarum_sso_plugin_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/sso-flarum-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/sso-flarum-admin.css', array(), $this->version );
 	}
 
 	/**
@@ -388,7 +391,7 @@ class Flarum_sso_plugin_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts(): void {
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -400,7 +403,7 @@ class Flarum_sso_plugin_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/sso-flarum-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/sso-flarum-admin.js', array( 'jquery' ), $this->version );
 	}
 
 }

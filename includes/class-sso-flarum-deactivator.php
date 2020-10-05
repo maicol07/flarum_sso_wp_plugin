@@ -20,7 +20,7 @@
  * @subpackage sso-flarum/includes
  * @author     maicol07 <maicolbattistini@live.it>
  */
-class Flarum_sso_plugin_Deactivator {
+class Flarum_SSO_Deactivator {
 
 	/**
 	 * Short Description. (use period)
@@ -29,7 +29,7 @@ class Flarum_sso_plugin_Deactivator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function deactivate() {
+	public static function deactivate(): void {
 
 	}
 

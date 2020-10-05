@@ -40,7 +40,7 @@ define( 'FLARUM_SSO_VERSION', '1.2' );
  */
 function activate_flarum_sso() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-sso-flarum-activator.php';
-	Flarum_sso_plugin_Activator::activate();
+	Flarum_SSO_Activator::activate();
 }
 
 /**
@@ -48,7 +48,7 @@ function activate_flarum_sso() {
  */
 function deactivate_flarum_sso() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-sso-flarum-deactivator.php';
-	Flarum_sso_plugin_Deactivator::deactivate();
+	Flarum_SSO_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_flarum_sso' );
@@ -109,7 +109,7 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'flarum_sso_ad
  *
  * @return array
  */
-function flarum_sso_plugin_add_meta_to_admin_plugins_page( $links, $file ) {
+function flarum_sso_plugin_add_meta_to_admin_plugins_page( $links, $file ): array {
 	if ( strpos( $file, plugin_basename( __FILE__ ) ) !== false ) {
 		$donate_url = esc_url( 'https://www.paypal.me/maicol072001/10eur' );
 
@@ -135,6 +135,7 @@ add_filter( 'plugin_row_meta', 'flarum_sso_plugin_add_meta_to_admin_plugins_page
  */
 require_once plugin_dir_path( __FILE__ ) . "vendor/autoload.php";
 
+use Eastwest\Json\Json;
 use Maicol07\SSO\Flarum;
 
 function print_wp_path_js() {
@@ -159,13 +160,14 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 	/**
 	 * Redirect user to Flarum
 	 *
-	 * @param $redirect_to
+	 * @param string $redirect_to
 	 * @param $request
 	 * @param $user
 	 *
 	 * @return string
+	 * @noinspection PhpUnusedParameterInspection
 	 */
-	function flarum_sso_login_redirect( $redirect_to, $request, $user ) {
+	function flarum_sso_login_redirect( string $redirect_to, $request, $user ): string {
 		global $flarum;
 
 		if ( $redirect_to === 'forum' && $user instanceof WP_User ) {
@@ -247,7 +249,7 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 					'sub_id' => get_option( 'flarum_sso_plugin_pro_key' ),
 					'url'    => get_site_url()
 				], get_option( 'flarum_sso_plugin_insecure' ) ? [ 'verify' => false ] : [] );
-			$response = json_decode( $r->body );
+			$response = Json::decode( $r->body );
 			if ( $r->success and $response->success ) {
 				switch ( $response->status ) {
 					case 'ACTIVE':
@@ -274,12 +276,13 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 			/**
 			 * Login to flarum (PRO)
 			 *
-			 * @param $user_login
-			 * @param $user
+			 * @param null|WP_Error|WP_User $user
+			 * @param string $username
+			 * @param string $password
 			 *
 			 * @return WP_Error|WP_User
 			 */
-			function flarum_sso_login_pro( $user, $username, $password ) {
+			function flarum_sso_login_pro( $user, string $username, string $password ) {
 				if ( ! $user instanceof WP_User ) {
 					return new WP_Error();
 				}
@@ -287,13 +290,10 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 				// Membership integration
 				$r     = $wpdb->get_var( 'SELECT memberships FROM ' . $wpdb->prefix . 'mepr_members WHERE user_id=' . $user->ID . ';' );
 				$rs    = explode( ',', $r );
-				$roles = array_map( function ( $ri ) {
+				$roles = array_map( static function ( $ri ): ?string {
 					$p = get_post( trim( $ri ) );
-					if ( empty( $p ) ) {
-						return null;
-					}
 
-					return $p->post_title;
+					return $p->post_title ?? null;
 				}, $rs );
 
 				return flarum_sso_login( $user, $username, $password, $roles );

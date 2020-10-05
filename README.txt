@@ -1,11 +1,11 @@
 === Flarum SSO WP Plugin ===
 Contributors: maicol07
 Donate link: https://paypal.me/maicol072001/10eur
-Tags: flarum, sso, extension, plguin, php, authentication, forum, auth
+Tags: flarum, sso, extension, plugin, php, authentication, forum, auth
 Requires at least: 4.4
 Tested up to: 5.4
 Stable tag: 4.3
-Requires PHP: 7.0
+Requires PHP: 7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

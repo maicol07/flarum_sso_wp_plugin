@@ -24,7 +24,7 @@
  * @subpackage sso-flarum/includes
  * @author     maicol07 <maicolbattistini@live.it>
  */
-class Flarum_sso_plugin_i18n {
+class Flarum_SSO_i18n {
 
 
 	/**
@@ -32,12 +32,12 @@ class Flarum_sso_plugin_i18n {
 	 *
 	 * @since    1.0.0
 	 */
-	public function load_plugin_textdomain() {
+	public function load_plugin_textdomain(): void {
 
 		load_plugin_textdomain(
 			'sso-flarum',
 			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
+			dirname( plugin_basename( __FILE__ ), 2 ) . '/languages/'
 		);
 
 	}

@@ -20,7 +20,7 @@
  * @subpackage sso-flarum/includes
  * @author     maicol07 <maicolbattistini@live.it>
  */
-class Flarum_sso_plugin_Activator {
+class Flarum_SSO_Activator {
 
 	/**
 	 * Short Description. (use period)
@@ -29,7 +29,7 @@ class Flarum_sso_plugin_Activator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function activate() {
+	public static function activate(): void {
 
 	}
 
