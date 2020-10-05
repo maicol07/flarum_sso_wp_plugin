@@ -136,6 +136,7 @@ add_filter( 'plugin_row_meta', 'flarum_sso_plugin_add_meta_to_admin_plugins_page
 require_once plugin_dir_path( __FILE__ ) . "vendor/autoload.php";
 
 use Maicol07\SSO\Flarum;
+use Maicol07\SSO\User;
 
 function print_wp_path_js() {
 	echo '<script>
@@ -146,31 +147,36 @@ function print_wp_path_js() {
 add_action( 'wp_head', 'print_wp_path_js' );
 
 if ( get_option( 'flarum_sso_plugin_active' ) ) {
-	$flarum = new Flarum(
-		get_option( 'flarum_sso_plugin_flarum_url' ),
-		get_option( 'flarum_sso_plugin_root_domain' ),
-		get_option( 'flarum_sso_plugin_api_key' ),
-		get_option( 'flarum_sso_plugin_password_token' ),
-		get_option( 'flarum_sso_plugin_lifetime', 14 ),
-		get_option( 'flarum_sso_plugin_insecure', false ),
-		get_option( 'flarum_sso_plugin_set_groups_admins', true )
-	);
+	$flarum   = new Flarum( [
+		'url'               => get_option( 'flarum_sso_plugin_flarum_url' ),
+		'root_domain'       => get_option( 'flarum_sso_plugin_root_domain' ),
+		'api_key'           => get_option( 'flarum_sso_plugin_api_key' ),
+		'password_token'    => get_option( 'flarum_sso_plugin_password_token' ),
+		'lifetime'          => get_option( 'flarum_sso_plugin_lifetime', 14 ),
+		'insecure'          => get_option( 'flarum_sso_plugin_insecure', false ),
+		'set_groups_admins' => get_option( 'flarum_sso_plugin_set_groups_admins', true )
+	] );
+	$user     = wp_get_current_user();
+	$username = null;
+	if ( $user instanceof WP_User ) {
+		$username = $user->user_login;
+	}
+	$flarum_user = new User( $username, $flarum );
 
 	/**
 	 * Redirect user to Flarum
 	 *
 	 * @param string $redirect_to
-	 * @param $request
-	 * @param $user
+	 * @param string $request_redirect
+	 * @param WP_User|WP_Error $user
 	 *
 	 * @return string
-	 * @noinspection PhpUnusedParameterInspection
 	 */
-	function flarum_sso_login_redirect( string $redirect_to, $request, $user ): string {
+	function flarum_sso_login_redirect( string $redirect_to, string $request_redirect, $user ): string {
 		global $flarum;
 
 		if ( $redirect_to === 'forum' && $user instanceof WP_User ) {
-			$flarum->redirectToForum();
+			$flarum->redirect();
 		}
 
 		return $redirect_to;
@@ -179,27 +185,44 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 	add_filter( 'login_redirect', 'flarum_sso_login_redirect', 10, 3 );
 
 	/**
+	 * Allow to login with email
+	 *
+	 * @param string $username
+	 */
+	function wp_authenticate_by_email( string &$username ) {
+		$user = get_user_by( 'email', $username );
+
+		if ( ! $user ) {
+			$username = $user->user_login;
+		}
+
+	}
+
+	add_action( 'wp_authenticate', 'wp_authenticate_by_email' );
+
+	/**
 	 * Login to flarum
 	 *
-	 * @param $user
+	 * @param null|WP_User|WP_Error $user
 	 *
-	 * @param $username
-	 * @param $password
-	 * @param null|array $groups
+	 * @param string $username
+	 * @param string $password
 	 *
 	 * @return WP_Error|WP_User
 	 */
-	function flarum_sso_login( $user, $username, $password, $groups = null ) {
+	function flarum_sso_login( $user, string $username, string $password ) {
 		if ( ! $user instanceof WP_User ) {
 			return new WP_Error();
 		}
-		global $flarum;
+		global $flarum_user;
 
-		$flarum->login( $username, $user->user_email, $password, $groups );
+		$flarum_user->attributes->username = $user->user_login;
+		$flarum_user->attributes->password = $password;
+		$flarum_user->attributes->email    = $user->user_email;
+		$flarum_user->login();
 
 		return $user;
 	}
-
 	add_filter( 'authenticate', 'flarum_sso_login', 35, 3 );
 
 	/**
@@ -210,23 +233,20 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 
 		$flarum->logout();
 	}
-
 	add_action( 'wp_logout', 'flarum_sso_logout' );
 
 	function flarum_sso_delete_user( $user_id ) {
-		global $flarum;
+		global $flarum_user;
 
-		$user = new WP_User( $user_id );
-		$flarum->delete( $user->user_login );
+		$flarum_user->delete();
 	}
-
 	add_action( 'delete_user', 'flarum_sso_delete_user', 10 );
 
 	function flarum_sso_update_user_password( WP_User $user, string $password ) {
-		global $flarum;
+		global $flarum_user;
 
-		$flarum->update( $user->user_login, $user->user_email, $password );
+		$flarum_user->attributes->password = $password;
+		$flarum_user->update();
 	}
-
 	add_action( 'after_password_reset', 'flarum_sso_update_user_password', 10, 3 );
 }
