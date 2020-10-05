@@ -219,6 +219,7 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 		$flarum_user->attributes->username = $user->user_login;
 		$flarum_user->attributes->password = $password;
 		$flarum_user->attributes->email    = $user->user_email;
+		$flarum_user->attributes->bio      = $user->user_description;
 		$flarum_user->login();
 
 		return $user;
@@ -240,6 +241,7 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 
 		$flarum_user->delete();
 	}
+
 	add_action( 'delete_user', 'flarum_sso_delete_user', 10 );
 
 	function flarum_sso_update_user_password( WP_User $user, string $password ) {
@@ -248,5 +250,18 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 		$flarum_user->attributes->password = $password;
 		$flarum_user->update();
 	}
+
 	add_action( 'after_password_reset', 'flarum_sso_update_user_password', 10, 3 );
+
+	function flarum_sso_update_details() {
+		global $user;
+		global $flarum_user;
+
+		$flarum_user->attributes->username = $user->user_login;
+		$flarum_user->attributes->email    = $user->user_email;
+		$flarum_user->attributes->bio      = $user->user_description;
+		$flarum_user->update();
+	}
+
+	add_action( 'profile_update', 'flarum_sso_update_details' );
 }
