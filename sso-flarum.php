@@ -135,7 +135,6 @@ add_filter( 'plugin_row_meta', 'flarum_sso_plugin_add_meta_to_admin_plugins_page
  */
 require_once plugin_dir_path( __FILE__ ) . "vendor/autoload.php";
 
-use Eastwest\Json\Json;
 use Maicol07\SSO\Flarum;
 
 function print_wp_path_js() {
@@ -230,79 +229,4 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 	}
 
 	add_action( 'after_password_reset', 'flarum_sso_update_user_password', 10, 3 );
-
-	if ( get_option( 'flarum_sso_plugin_pro_active' ) ) {
-		function pro_cron( $schedules ) {
-			$schedules['every_month'] = array(
-				'interval' => 60 * 60 * 24 * 30,
-				'display'  => esc_html__( 'Every Month' ),
-			);
-
-			return $schedules;
-		}
-
-		add_filter( 'cron_schedules', 'pro_cron' );
-
-		function flarum_sso_check_pro() {
-			$r        = Requests::post( 'https://' . get_option( 'flarum_sso_plugin_verification_server', 'maicol07.it' ) . '/flarum_sso/wp_check.php',
-				[], [
-					'sub_id' => get_option( 'flarum_sso_plugin_pro_key' ),
-					'url'    => get_site_url()
-				], get_option( 'flarum_sso_plugin_insecure' ) ? [ 'verify' => false ] : [] );
-			$response = Json::decode( $r->body );
-			if ( $r->success and $response->success ) {
-				switch ( $response->status ) {
-					case 'ACTIVE':
-						update_option( 'flarum_sso_plugin_pro_active', true );
-						break;
-					default:
-						update_option( 'flarum_sso_plugin_pro_active', false );
-						break;
-				}
-			}
-		}
-
-		add_action( 'flarum_sso_plugin_cron_hook', 'flarum_sso_check_pro' );
-		if ( ! wp_next_scheduled( 'flarum_sso_plugin_cron_hook' ) ) {
-			wp_schedule_event( time(), 'every_month', 'flarum_sso_plugin_cron_hook' );
-		}
-
-		if ( ! function_exists( 'is_plugin_active' ) ) {
-			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-		}
-
-		// Memberpress integration
-		if ( is_plugin_active( 'memberpress/memberpress.php' ) ) {
-			/**
-			 * Login to flarum (PRO)
-			 *
-			 * @param null|WP_Error|WP_User $user
-			 * @param string $username
-			 * @param string $password
-			 *
-			 * @return WP_Error|WP_User
-			 */
-			function flarum_sso_login_pro( $user, string $username, string $password ) {
-				if ( ! $user instanceof WP_User ) {
-					return new WP_Error();
-				}
-				global $wpdb;
-				// Membership integration
-				$r     = $wpdb->get_var( 'SELECT memberships FROM ' . $wpdb->prefix . 'mepr_members WHERE user_id=' . $user->ID . ';' );
-				$rs    = explode( ',', $r );
-				$roles = array_map( static function ( $ri ): ?string {
-					$p = get_post( trim( $ri ) );
-
-					return $p->post_title ?? null;
-				}, $rs );
-
-				return flarum_sso_login( $user, $username, $password, $roles );
-			}
-
-			remove_filter( 'authenticate', 'flarum_sso_login' );
-			add_filter( 'authenticate', 'flarum_sso_login_pro', 31, 3 );
-
-		}
-
-	}
 }
