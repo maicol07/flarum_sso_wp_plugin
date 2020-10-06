@@ -10,23 +10,24 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/maicol07/flarum_sso_wp_plugin.git"
-	},
-	"keywords": [
-		"flarum",
-		"sso",
-		"plugin",
-		"extension"
-	],
-	"author": "maicol07",
-	"license": "AGPL-3.0-or-later",
-	"bugs": {
-		"url": "https://bugs.maicol07.it/projects/0b8fae6e-4c8e-4b34-8fff-9bac316e4edc"
-	},
-	"homepage": "https://github.com/maicol07/flarum_sso_wp_plugin#readme",
-	"devDependencies": {
-		"gulp": "^4",
-		"gulp-clean": "^0",
-		"gulp-vinyl-zip": "^2",
-		"merge-stream": "^2"
-	}
+  },
+  "keywords": [
+    "flarum",
+    "sso",
+    "plugin",
+    "extension"
+  ],
+  "author": "maicol07",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://bugs.maicol07.it/projects/0b8fae6e-4c8e-4b34-8fff-9bac316e4edc"
+  },
+  "homepage": "https://github.com/maicol07/flarum_sso_wp_plugin#readme",
+  "devDependencies": {
+    "gulp": "^4",
+    "gulp-clean": "^0",
+    "gulp-vinyl-zip": "^2",
+    "merge-stream": "^2"
+  },
+  "dependencies": {}
 }

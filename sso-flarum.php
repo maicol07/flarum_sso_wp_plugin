@@ -16,7 +16,7 @@
  * Plugin Name:       SSO for Flarum
  * Plugin URI:        https://github.com/maicol07/flarum-sso-wp-plugin
  * Description:       Plugin for your WordPress website to get the SSO extension working
- * Version:           1.2
+ * Version:           2.0
  * Author:            maicol07
  * Author URI:        https://maicol07.it
  * License:           GPL-2.0+
@@ -33,7 +33,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'FLARUM_SSO_VERSION', '1.2' );
+define( 'FLARUM_SSO_VERSION', '2.0' );
 
 /**
  * The code that runs during plugin activation.
@@ -147,6 +147,12 @@ function print_wp_path_js() {
 add_action( 'wp_head', 'print_wp_path_js' );
 
 if ( get_option( 'flarum_sso_plugin_active' ) ) {
+	add_action( 'plugins_loaded', 'main' );
+}
+
+function main() {
+	global $flarum;
+	global $flarum_user;
 	$flarum   = new Flarum( [
 		'url'               => get_option( 'flarum_sso_plugin_flarum_url' ),
 		'root_domain'       => get_option( 'flarum_sso_plugin_root_domain' ),
@@ -158,7 +164,7 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 	] );
 	$user     = wp_get_current_user();
 	$username = null;
-	if ( $user instanceof WP_User ) {
+	if ( $user instanceof WP_User and $user->ID !== 0 ) {
 		$username = $user->user_login;
 	}
 	$flarum_user = new User( $username, $flarum );
@@ -185,22 +191,6 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 	add_filter( 'login_redirect', 'flarum_sso_login_redirect', 10, 3 );
 
 	/**
-	 * Allow to login with email
-	 *
-	 * @param string $username
-	 */
-	function wp_authenticate_by_email( string &$username ) {
-		$user = get_user_by( 'email', $username );
-
-		if ( ! $user ) {
-			$username = $user->user_login;
-		}
-
-	}
-
-	add_action( 'wp_authenticate', 'wp_authenticate_by_email' );
-
-	/**
 	 * Login to flarum
 	 *
 	 * @param null|WP_User|WP_Error $user
@@ -224,6 +214,7 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 
 		return $user;
 	}
+
 	add_filter( 'authenticate', 'flarum_sso_login', 35, 3 );
 
 	/**
@@ -234,6 +225,7 @@ if ( get_option( 'flarum_sso_plugin_active' ) ) {
 
 		$flarum->logout();
 	}
+
 	add_action( 'wp_logout', 'flarum_sso_logout' );
 
 	function flarum_sso_delete_user( $user_id ) {
