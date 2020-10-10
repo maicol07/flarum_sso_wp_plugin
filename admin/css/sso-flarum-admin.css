@@ -1,4 +1,37 @@
-/**
- * All of the CSS for your admin-specific functionality should be
- * included in this file.
- */
+/* Badges */
+.badge {
+    padding: 5px 7px;
+    margin-right: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+}
+
+.badge-red {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.badge-blue {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.badge-green {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.badge-lightgreen {
+    background-color: #47d337;
+}
+
+.card.no-wp {
+    min-width: unset;
+    border: none;
+    padding: unset;
+    box-sizing: unset;
+}
+
+span.card-header-icon {
+    cursor: default;
+}

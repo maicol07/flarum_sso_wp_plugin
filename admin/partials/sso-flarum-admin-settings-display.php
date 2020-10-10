@@ -1,28 +1,80 @@
-<?php
-/**
- * Provide a admin area view for the plugin
- *
- * This file is used to markup the admin-facing aspects of the plugin.
- *
- * @link       plugin_name.com/team
- * @since      1.0.0
- *
- * @package    PluginName
- * @subpackage PluginName/admin/partials
- */
-?>
-
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
 <div class="wrap">
 	<div id="icon-themes" class="icon32"></div>
-	<h2><?php _e("Flarum SSO Settings", 'sso-flarum') ?></h2>
-	<!--NEED THE settings_errors below so that the errors/success messages are shown after submission - wasn't working once we started using add_menu_page and stopped using add_options_page so needed this-->
-	<?php settings_errors(); ?>
-	<form method="POST" action="options.php">
-		<?php
-		settings_fields('flarum_sso_plugin_general_settings');
-		do_settings_sections('flarum_sso_plugin_general_settings');
-		?>
-		<?php submit_button(); ?>
-	</form>
+	<h2><?php _e( "Flarum SSO Settings", 'sso-flarum' ) ?></h2>
+	<?php settings_errors( '', false, true ); ?>
+	<div class="columns" style="margin-top: 8px;">
+		<div class="column">
+			<div class="box">
+				<h2 class="subtitle" style="padding-left: 0"><?php echo __( "General settings" ) ?></h2>
+				<p><?php echo __( "These settings apply to all Flarum SSO Plugin functionality. To know more about something check the <a href='https://docs.maicol07.it/en/flarum_sso_plugin/wp/introduction'>docs</a>.", "sso-flarum" ) ?></p>
+				<form method="POST" action="options.php">
+					<?php
+					settings_fields( 'flarum_sso_plugin_general_settings' );
+
+					echo '<table class="form-table">';
+					do_settings_fields( 'flarum_sso_plugin_general_settings', 'flarum_sso_plugin_general_section' );
+					echo '</table>';
+
+					submit_button();
+					?>
+				</form>
+			</div>
+		</div>
+		<div class="column">
+			<div class="box">
+				<h2 class="subtitle" style="padding-left: 0"><?php echo __( "Addons settings" ) ?></h2>
+				<p><?php echo __( "These are settings configurable only for installed addons." ) ?></p>
+				<?php
+				$addons = [
+					'memberpress' => 'Memberpress'
+				];
+				foreach ( $addons as $addon => $addon_text ) {
+					if ( is_plugin_active( "flarum-sso-{$addon}-addon/flarum-sso-{$addon}-addon.php" ) ) {
+						$badge_text  = __( "ACTIVE" );
+						$badge_class = 'green';
+					} else {
+						$badge_text  = __( "NOT ACTIVE" );
+						$badge_class = 'red';
+					}
+					?>
+					<div class="card no-wp">
+						<header class="card-header">
+							<p class="card-header-title">
+								<?php echo $addon_text ?>
+							</p>
+							<span class="card-header-icon">
+						        <span class="badge badge-<?php echo $badge_class ?>">
+						            <?php echo $badge_text ?>
+						        </span>
+						    </span>
+						</header>
+						<div class="card-content">
+							<div class="content">
+								<form method="POST" action="options.php">
+									<?php
+									settings_fields( "flarum_sso_plugin_{$addon}_addon_settings" );
+									ob_start();
+
+									do_settings_fields( 'flarum_sso_plugin_general_settings', "flarum_sso_plugin_{$addon}_addon_settings" );
+
+									$output = ob_get_clean();
+									if ( ! empty( $output ) ) {
+										echo '<table class="form-table">';
+										echo $output;
+										echo '</table>';
+										submit_button();
+									} else {
+										echo __( "No settings can be configured for this plugin at the moment!" );
+									}
+									?>
+								</form>
+							</div>
+						</div>
+					</div>
+					<?php
+				}
+				?>
+			</div>
+		</div>
+	</div>
 </div>
