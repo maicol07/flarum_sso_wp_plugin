@@ -56,19 +56,24 @@ class Flarum_SSO_Public {
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
+	 * @param string $hook Page ID
+	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles(): void {
+	public function enqueue_styles( string $hook ): void {
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/sso-flarum-public.css', array(), $this->version );
+		do_action( 'flarum_sso_plugin_add_css', $hook );
 	}
 
 	/**
 	 * Register the JavaScript for the public-facing side of the site.
 	 *
+	 * @param string $hook Page ID
+	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts(): void {
+	public function enqueue_scripts( string $hook ): void {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/sso-flarum-public.js', array( 'jquery' ), $this->version );
+		do_action( 'flarum_sso_plugin_add_js', $hook );
 	}
-
 }
