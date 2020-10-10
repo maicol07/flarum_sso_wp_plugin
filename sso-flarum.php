@@ -85,6 +85,7 @@ use Maicol07\SSO\User;
 function main() {
 	global $flarum;
 	global $flarum_user;
+
 	$flarum   = new Flarum( [
 		'url'               => get_option( 'flarum_sso_plugin_flarum_url' ),
 		'root_domain'       => get_option( 'flarum_sso_plugin_root_domain' ),
@@ -94,6 +95,7 @@ function main() {
 		'insecure'          => get_option( 'flarum_sso_plugin_insecure', false ),
 		'set_groups_admins' => get_option( 'flarum_sso_plugin_set_groups_admins', true )
 	] );
+
 	$user     = wp_get_current_user();
 	$username = null;
 	if ( $user instanceof WP_User and $user->ID !== 0 ) {
@@ -119,7 +121,6 @@ function main() {
 
 		return $redirect_to;
 	}
-
 	add_filter( 'login_redirect', 'flarum_sso_login_redirect', 10, 3 );
 
 	/**
@@ -146,7 +147,6 @@ function main() {
 
 		return $user;
 	}
-
 	add_filter( 'authenticate', 'flarum_sso_login', 35, 3 );
 
 	/**
@@ -157,7 +157,6 @@ function main() {
 
 		$flarum->logout();
 	}
-
 	add_action( 'wp_logout', 'flarum_sso_logout' );
 
 	function flarum_sso_delete_user( $user_id ) {
@@ -177,17 +176,23 @@ function main() {
 
 	add_action( 'after_password_reset', 'flarum_sso_update_user_password', 10, 3 );
 
-	function flarum_sso_update_details() {
-		global $user;
-		global $flarum_user;
+	function flarum_sso_update_details( int $user_id, WP_User $old_user ) {
+		global $flarum;
+		// Don't use global user variables, as the update can be done from another user (like an admin)
 
-		$flarum_user->attributes->username = $user->user_login;
-		$flarum_user->attributes->email    = $user->user_email;
-		$flarum_user->attributes->bio      = $user->user_description;
+		$user        = get_userdata( $user_id );
+		$flarum_user = new User( $old_user->user_login, $flarum );
+
+		$flarum_user->attributes->username    = $user->user_login;
+		$flarum_user->attributes->email       = $user->user_email;
+		$flarum_user->attributes->bio         = $user->user_description;
+		$flarum_user->attributes->displayName = $user->display_name;
+		$flarum_user->attributes->avatarUrl   = get_avatar_url( $user, [ 'size' => 100 ] );
+
 		$flarum_user->update();
 	}
 
-	add_action( 'profile_update', 'flarum_sso_update_details' );
+	add_action( 'profile_update', 'flarum_sso_update_details', 10, 2 );
 }
 
 if ( get_option( 'flarum_sso_plugin_active' ) ) {
