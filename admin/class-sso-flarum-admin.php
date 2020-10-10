@@ -52,20 +52,28 @@ class Flarum_SSO_Admin {
 	public function __construct( string $plugin_name, string $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
-		add_action( 'admin_menu', array( $this, 'addPluginAdminMenu' ), 9 );
-		add_action( 'admin_init', array( $this, 'registerAndBuildFields' ) );
+		add_action( 'admin_menu', [ $this, 'addPluginAdminMenu' ], 9 );
+		add_action( 'admin_init', [ $this, 'registerAndBuildFields' ] );
 
 		// Plugin page
-		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'flarum_sso_add_links_to_admin_plugins_page' );
-		add_filter( 'plugin_row_meta', 'flarum_sso_plugin_add_meta_to_admin_plugins_page', 10, 2 );
+		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), [
+			$this,
+			'flarum_sso_add_links_to_admin_plugins_page'
+		] );
+		add_filter( 'plugin_row_meta', [ $this, 'flarum_sso_plugin_add_meta_to_admin_plugins_page' ], 10, 2 );
 	}
 
 	public function addPluginAdminMenu(): void {
-		add_submenu_page( 'options-general.php', __( 'Flarum SSO Plugin Settings', 'sso-flarum' ),
-			__( 'Flarum SSO plugin', 'sso-flarum' ), 'administrator', $this->plugin_name . '-settings', array(
+		add_submenu_page(
+			'options-general.php',
+			__( 'Flarum SSO Plugin Settings', 'sso-flarum' ),
+			__( 'Flarum SSO plugin', 'sso-flarum' ), 'administrator',
+			$this->plugin_name . '-settings',
+			[
 				$this,
 				'displayPluginAdminSettings'
-			) );
+			]
+		);
 	}
 
 	/**
@@ -75,7 +83,7 @@ class Flarum_SSO_Admin {
 		// set this var to be used in the settings-display view
 		// $active_tab = $_GET['tab'] ?? 'general';
 		if ( isset( $_GET['error_message'] ) ) {
-			add_action( 'admin_notices', array( $this, 'flarumSSOPluginSettingsMessages' ) );
+			add_action( 'admin_notices', [ $this, 'flarumSSOPluginSettingsMessages' ] );
 			do_action( 'admin_notices', $_GET['error_message'] );
 		}
 		require_once 'partials/' . $this->plugin_name . '-admin-settings-display.php';
