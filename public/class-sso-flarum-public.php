@@ -51,6 +51,16 @@ class Flarum_SSO_Public {
 	public function __construct( string $plugin_name, string $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
+
+		add_action( 'wp_head', 'print_wp_path_js' );
+	}
+
+	public function print_wp_path_js(): void {
+		echo '
+		<script>
+		WP_PATH = "' . get_site_url() . '";
+		</script>
+		';
 	}
 
 	/**

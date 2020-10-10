@@ -47,12 +47,17 @@ class Flarum_SSO_Admin {
 	 * @param string $version The version of this plugin.
 	 *
 	 * @since    1.0.0
+	 * @noinspection UnusedConstructorDependenciesInspection
 	 */
 	public function __construct( string $plugin_name, string $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 		add_action( 'admin_menu', array( $this, 'addPluginAdminMenu' ), 9 );
 		add_action( 'admin_init', array( $this, 'registerAndBuildFields' ) );
+
+		// Plugin page
+		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'flarum_sso_add_links_to_admin_plugins_page' );
+		add_filter( 'plugin_row_meta', 'flarum_sso_plugin_add_meta_to_admin_plugins_page', 10, 2 );
 	}
 
 	public function addPluginAdminMenu(): void {
@@ -263,5 +268,55 @@ class Flarum_SSO_Admin {
 			return;
 		}
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/sso-flarum-admin.js', [ 'jquery' ], '0.1', true );
+	}
+
+	/**
+	 * Adds settings and donate links to plugins page
+	 *
+	 * @param $links
+	 *
+	 * @return mixed
+	 */
+	public function flarum_sso_add_links_to_admin_plugins_page( $links ) {
+		$donate_url  = esc_url( 'https://www.paypal.me/maicol072001/10eur' );
+		$donate_link = '<a href="' . $donate_url . '">' . __( "Donate", 'sso-flarum' ) . '</a>'; //DONATE
+
+		// Prepend donate link to links array
+		array_unshift( $links, $donate_link );
+
+		$url           = esc_url( get_admin_url() . 'options-general.php?page=sso-flarum-settings' );
+		$settings_link = '<a href="' . $url . '">' . __( "Settings", 'sso-flarum' ) . '</a>';
+
+		// Prepend settings link to links array
+		array_unshift( $links, $settings_link );
+
+		return $links;
+	}
+
+	/**
+	 * Adds settings and donate links to plugin meta data in plugins page
+	 *
+	 * @param $links
+	 * @param $file
+	 *
+	 * @return array
+	 */
+	public function flarum_sso_plugin_add_meta_to_admin_plugins_page( $links, $file ): array {
+		if ( strpos( $file, plugin_basename( __FILE__ ) ) !== false ) {
+			$donate_url = esc_url( 'https://www.paypal.me/maicol072001/10eur' );
+
+			$url = esc_url( get_admin_url() . 'options-general.php?page=sso-flarum-settings' );
+
+			$review_url = esc_url( "https://wordpress.org/support/plugin/sso-flarum/reviews/#new-post" );
+			$new_links  = [
+				'<a href="' . $url . '"><span class="dashicons dashicons-admin-generic"></span> ' . __( "Settings", 'sso-flarum' ) . '</a>',
+				'<a href="' . $review_url . '"><span class="dashicons dashicons-star-filled"></span> ' . __( "Leave a review", 'sso-flarum' ) . '</a>',
+				'<a href="' . $donate_url . '"><span class="dashicons dashicons-heart"></span> ' . __( "Donate", 'sso-flarum' ) . '</a>'
+			];
+			// Add new links to existing links
+			$links = array_merge( $links, $new_links );
+		}
+
+		return $links;
 	}
 }

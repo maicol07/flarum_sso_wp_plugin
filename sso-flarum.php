@@ -76,79 +76,11 @@ function run_flarum_sso() {
 
 run_flarum_sso();
 
-/**
- * Adds settings and donate links to plugins page
- *
- * @param $links
- *
- * @return mixed
- */
-function flarum_sso_add_links_to_admin_plugins_page( $links ) {
-	$donate_url  = esc_url( 'https://www.paypal.me/maicol072001/10eur' );
-	$donate_link = '<a href="' . $donate_url . '">' . __( "Donate", 'sso-flarum' ) . '</a>'; //DONATE
-
-	// Prepend donate link to links array
-	array_unshift( $links, $donate_link );
-
-	$url           = esc_url( get_admin_url() . 'options-general.php?page=sso-flarum-settings' );
-	$settings_link = '<a href="' . $url . '">' . __( "Settings", 'sso-flarum' ) . '</a>';
-
-	// Prepend settings link to links array
-	array_unshift( $links, $settings_link );
-
-	return $links;
-}
-
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'flarum_sso_add_links_to_admin_plugins_page' );
-
-/**
- * Adds settings and donate links to plugin meta data in plugins page
- *
- * @param $links
- * @param $file
- *
- * @return array
- */
-function flarum_sso_plugin_add_meta_to_admin_plugins_page( $links, $file ): array {
-	if ( strpos( $file, plugin_basename( __FILE__ ) ) !== false ) {
-		$donate_url = esc_url( 'https://www.paypal.me/maicol072001/10eur' );
-
-		$url = esc_url( get_admin_url() . 'options-general.php?page=sso-flarum-settings' );
-
-		$review_url = esc_url( "https://wordpress.org/support/plugin/sso-flarum/reviews/#new-post" );
-		$new_links  = [
-			'<a href="' . $url . '"><span class="dashicons dashicons-admin-generic"></span> ' . __( "Settings", 'sso-flarum' ) . '</a>',
-			'<a href="' . $review_url . '"><span class="dashicons dashicons-star-filled"></span> ' . __( "Leave a review", 'sso-flarum' ) . '</a>',
-			'<a href="' . $donate_url . '"><span class="dashicons dashicons-heart"></span> ' . __( "Donate", 'sso-flarum' ) . '</a>'
-		];
-		// Add new links to existing links
-		$links = array_merge( $links, $new_links );
-	}
-
-	return $links;
-}
-
-add_filter( 'plugin_row_meta', 'flarum_sso_plugin_add_meta_to_admin_plugins_page', 10, 2 );
-
-/*
- * SSO
- */
+// Plugin functions
 require_once plugin_dir_path( __FILE__ ) . "vendor/autoload.php";
 
 use Maicol07\SSO\Flarum;
 use Maicol07\SSO\User;
-
-function print_wp_path_js() {
-	echo '<script>
-		WP_PATH = "' . get_site_url() . '";
-		</script>';
-}
-
-add_action( 'wp_head', 'print_wp_path_js' );
-
-if ( get_option( 'flarum_sso_plugin_active' ) ) {
-	add_action( 'plugins_loaded', 'main' );
-}
 
 function main() {
 	global $flarum;
@@ -256,4 +188,8 @@ function main() {
 	}
 
 	add_action( 'profile_update', 'flarum_sso_update_details' );
+}
+
+if ( get_option( 'flarum_sso_plugin_active' ) ) {
+	add_action( 'plugins_loaded', 'main' );
 }
