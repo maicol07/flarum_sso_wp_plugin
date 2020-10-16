@@ -76,8 +76,10 @@ function run_flarum_sso() {
 
 run_flarum_sso();
 
-// Plugin functions
+// Composer Autoloader
 require_once plugin_dir_path( __FILE__ ) . "vendor/autoload.php";
+// Addons
+require_once plugin_dir_path( __FILE__ ) . "includes/utils.php";
 
 use Maicol07\SSO\Flarum;
 use Maicol07\SSO\User;
@@ -86,7 +88,7 @@ function main() {
 	global $flarum;
 	global $flarum_user;
 
-	$flarum   = new Flarum( [
+	$flarum = new Flarum( [
 		'url'               => get_option( 'flarum_sso_plugin_flarum_url' ),
 		'root_domain'       => get_option( 'flarum_sso_plugin_root_domain' ),
 		'api_key'           => get_option( 'flarum_sso_plugin_api_key' ),
@@ -95,6 +97,7 @@ function main() {
 		'insecure'          => get_option( 'flarum_sso_plugin_insecure', false ),
 		'set_groups_admins' => get_option( 'flarum_sso_plugin_set_groups_admins', true )
 	] );
+	$flarum = apply_filters( 'flarum_sso_plugin_init_flarum', $flarum );
 
 	$user     = wp_get_current_user();
 	$username = null;
@@ -102,6 +105,7 @@ function main() {
 		$username = $user->user_login;
 	}
 	$flarum_user = new User( $username, $flarum );
+	$flarum_user = apply_filters( 'flarum_sso_plugin_init_flarum_user', $flarum_user );
 
 	/**
 	 * Redirect user to Flarum
@@ -143,6 +147,9 @@ function main() {
 		$flarum_user->attributes->password = $password;
 		$flarum_user->attributes->email    = $user->user_email;
 		$flarum_user->attributes->bio      = $user->user_description;
+
+		$flarum_user = apply_filters( 'flarum_sso_plugin_before_login', $flarum_user, $user );
+
 		$flarum_user->login();
 
 		return $user;
