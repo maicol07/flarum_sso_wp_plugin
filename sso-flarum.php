@@ -88,13 +88,18 @@ function main() {
 	global $flarum;
 	global $flarum_user;
 
+	$verify = get_option( 'flarum_sso_plugin_verify_ssl', true );
+	if ( is_numeric( $verify ) ) {
+		$verify = ( (int) $verify ) ? true : false;
+	}
+
 	$flarum = new Flarum( [
 		'url'               => get_option( 'flarum_sso_plugin_flarum_url' ),
 		'root_domain'       => get_option( 'flarum_sso_plugin_root_domain' ),
 		'api_key'           => get_option( 'flarum_sso_plugin_api_key' ),
 		'password_token'    => get_option( 'flarum_sso_plugin_password_token' ),
 		'lifetime'          => get_option( 'flarum_sso_plugin_lifetime', 14 ),
-		'insecure'          => get_option( 'flarum_sso_plugin_insecure', false ),
+		'verify_ssl'        => $verify,
 		'set_groups_admins' => get_option( 'flarum_sso_plugin_set_groups_admins', true )
 	] );
 	$flarum = apply_filters( 'flarum_sso_plugin_init_flarum', $flarum );

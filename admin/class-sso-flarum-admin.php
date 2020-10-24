@@ -114,7 +114,7 @@ class Flarum_SSO_Admin {
 			],
 			[
 				'type'             => 'input',
-				'subtype'          => 'text',
+				'subtype'          => 'url',
 				'id'               => 'flarum_sso_plugin_flarum_url',
 				'name'             => 'flarum_sso_plugin_flarum_url',
 				'required'         => 'true',
@@ -125,7 +125,7 @@ class Flarum_SSO_Admin {
 			],
 			[
 				'type'             => 'input',
-				'subtype'          => 'text',
+				'subtype'          => 'url',
 				'id'               => 'flarum_sso_plugin_root_domain',
 				'name'             => 'flarum_sso_plugin_root_domain',
 				'required'         => 'true',
@@ -158,7 +158,7 @@ class Flarum_SSO_Admin {
 			],
 			[
 				'type'             => 'input',
-				'subtype'          => 'text',
+				'subtype'          => 'number',
 				'id'               => 'flarum_sso_plugin_lifetime',
 				'name'             => 'flarum_sso_plugin_lifetime',
 				'required'         => 'true',
@@ -170,20 +170,32 @@ class Flarum_SSO_Admin {
 			[
 				'type'             => 'input',
 				'subtype'          => 'checkbox',
-				'id'               => 'flarum_sso_plugin_insecure',
-				'name'             => 'flarum_sso_plugin_insecure',
+				'id'               => 'flarum_sso_plugin_verify_ssl',
+				'name'             => 'flarum_sso_plugin_verify_ssl',
 				'required'         => 'false',
 				'get_options_list' => '',
 				'value_type'       => 'normal',
 				'wp_data'          => 'option',
-				'label'            => __( "Insecure mode (use only if you don't have a valid SSL certificate)", 'sso-flarum' ),
+				'label'            => __( "Verify SSL (uncheck only if you don't have a valid SSL certificate, like a self-signed one)", 'sso-flarum' ),
+			],
+			[
+				'type'             => 'input',
+				'subtype'          => 'text',
+				'id'               => 'flarum_sso_plugin_verify_ssl_cert_path',
+				'name'             => 'flarum_sso_plugin_verify_ssl_cert_path',
+				'required'         => 'false',
+				'get_options_list' => '',
+				'value_type'       => 'normal',
+				'wp_data'          => 'option',
+				'label'            => __( "SSL certificate absolute path (optional if you have disabled the verify ssl option)", 'sso-flarum' ),
 			]
 		];
 
 		// Default values
 		$values = [
 			'lifetime'    => 14,
-			'root_domain' => get_site_url()
+			'root_domain' => get_site_url(),
+			'verify_ssl'  => true
 		];
 		foreach ( $values as $option => $value ) {
 			if ( get_option( 'flarum_sso_plugin_' . $option ) === false ) // Nothing yet saved
