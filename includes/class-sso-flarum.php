@@ -1,10 +1,6 @@
 <?php
-
 /**
  * The file that defines the core plugin class
- *
- * A class definition that includes attributes and functions used across both the
- * public-facing side of the site and the admin area.
  *
  * @link       https://maicol07.it
  * @since      1.0.0
@@ -16,18 +12,12 @@
 /**
  * The core plugin class.
  *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
- *
  * @since      1.0.0
  * @package    sso-flarum
  * @subpackage sso-flarum/includes
  * @author     maicol07 <maicolbattistini@live.it>
  */
-class Flarum_sso_plugin {
+class SSO_Flarum {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +25,7 @@ class Flarum_sso_plugin {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Flarum_SSO_Plugin_Loader $loader Maintains and registers all hooks for the plugin.
+	 * @var      SSO_Flarum_Loader $loader Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -59,10 +49,6 @@ class Flarum_sso_plugin {
 
 	/**
 	 * Define the core functionality of the plugin.
-	 *
-	 * Set the plugin name and the plugin version that can be used throughout the plugin.
-	 * Load the dependencies, define the locale, and set the hooks for the admin area and
-	 * the public-facing side of the site.
 	 *
 	 * @since    1.0.0
 	 */
@@ -109,7 +95,7 @@ class Flarum_sso_plugin {
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( __DIR__ ) . 'includes/class-sso-flarum-i18n.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-sso-flarum-localization.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
@@ -122,7 +108,7 @@ class Flarum_sso_plugin {
 		 */
 		require_once plugin_dir_path( __DIR__ ) . 'public/class-sso-flarum-public.php';
 
-		$this->loader = new Flarum_SSO_Plugin_Loader();
+		$this->loader = new SSO_Flarum_Loader();
 
 	}
 
@@ -137,7 +123,7 @@ class Flarum_sso_plugin {
 	 */
 	private function set_locale(): void {
 
-		$plugin_i18n = new Flarum_SSO_i18n();
+		$plugin_i18n = new SSO_Flarum_Localization();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -152,7 +138,7 @@ class Flarum_sso_plugin {
 	 */
 	private function define_admin_hooks(): void {
 
-		$plugin_admin = new Flarum_SSO_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new SSO_Flarum_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -168,7 +154,7 @@ class Flarum_sso_plugin {
 	 */
 	private function define_public_hooks(): void {
 
-		$plugin_public = new Flarum_SSO_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new SSO_Flarum_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -198,10 +184,10 @@ class Flarum_sso_plugin {
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @return    Flarum_SSO_Plugin_Loader    Orchestrates the hooks of the plugin.
+	 * @return    SSO_Flarum_Loader    Orchestrates the hooks of the plugin.
 	 * @since     1.0.0
 	 */
-	public function get_loader(): Flarum_SSO_Plugin_Loader {
+	public function get_loader(): SSO_Flarum_Loader {
 		return $this->loader;
 	}
 

@@ -1,5 +1,11 @@
 <?php
 /**
+ * Activation hook
+ *
+ * @package sso-flarum
+ */
+
+/**
  * Fired during plugin activation.
  *
  * @since      1.0.0
@@ -7,7 +13,7 @@
  * @subpackage sso-flarum/includes
  * @author     maicol07 <maicolbattistini@live.it>
  */
-class Flarum_SSO_Activator {
+class SSO_Flarum_Activator {
 
 	/**
 	 * Activate and update the plugin

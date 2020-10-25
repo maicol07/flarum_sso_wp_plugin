@@ -1,5 +1,5 @@
-// noinspection JSUnusedLocalSymbols
+/** noinspection JSUnusedLocalSymbols */
 (function( $ ) {
-    'use strict';
+	'use strict';
 
 })( jQuery );

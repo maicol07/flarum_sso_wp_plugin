@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Fired during plugin deactivation
  *
@@ -20,7 +19,7 @@
  * @subpackage sso-flarum/includes
  * @author     maicol07 <maicolbattistini@live.it>
  */
-class Flarum_SSO_Deactivator {
+class SSO_Flarum_Disabler {
 
 	/**
 	 * Short Description. (use period)

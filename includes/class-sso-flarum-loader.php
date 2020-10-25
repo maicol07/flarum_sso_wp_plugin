@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Register all actions and filters for the plugin
  *
@@ -13,15 +12,11 @@
 /**
  * Register all actions and filters for the plugin.
  *
- * Maintain a list of all hooks that are registered throughout
- * the plugin, and register them with the WordPress API. Call the
- * run function to execute the list of actions and filters.
- *
  * @package    sso-flarum
  * @subpackage sso-flarum/includes
  * @author     maicol07 <maicolbattistini@live.it>
  */
-class Flarum_SSO_Plugin_Loader {
+class SSO_Flarum_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.
@@ -47,10 +42,8 @@ class Flarum_SSO_Plugin_Loader {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-
 		$this->actions = array();
 		$this->filters = array();
-
 	}
 
 	/**
@@ -75,7 +68,7 @@ class Flarum_SSO_Plugin_Loader {
 	 * @param object $component A reference to the instance of the object on which the filter is defined.
 	 * @param string $callback The name of the function definition on the $component.
 	 * @param int $priority Optional. The priority at which the function should be fired. Default is 10.
-	 * @param int $accepted_args Optional. The number of arguments that should be passed to the $callback. Default is 1
+	 * @param int $accepted_args Optional. The number of arguments that should be passed to the $callback. Default is 1.
 	 *
 	 * @since    1.0.0
 	 */
@@ -99,17 +92,15 @@ class Flarum_SSO_Plugin_Loader {
 	 * @access   private
 	 */
 	private function add( array $hooks, string $hook, object $component, string $callback, int $priority, int $accepted_args ): array {
-
 		$hooks[] = array(
 			'hook'          => $hook,
 			'component'     => $component,
 			'callback'      => $callback,
 			'priority'      => $priority,
-			'accepted_args' => $accepted_args
+			'accepted_args' => $accepted_args,
 		);
 
 		return $hooks;
-
 	}
 
 	/**
@@ -118,7 +109,6 @@ class Flarum_SSO_Plugin_Loader {
 	 * @since    1.0.0
 	 */
 	public function run(): void {
-
 		foreach ( $this->filters as $hook ) {
 			add_filter( $hook['hook'], array(
 				$hook['component'],
@@ -132,7 +122,5 @@ class Flarum_SSO_Plugin_Loader {
 				$hook['callback']
 			), $hook['priority'], $hook['accepted_args'] );
 		}
-
 	}
-
 }

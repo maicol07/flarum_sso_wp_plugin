@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The public-facing functionality of the plugin.
  *
@@ -13,14 +12,11 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the public-facing stylesheet and JavaScript.
- *
  * @package    sso-flarum
  * @subpackage sso-flarum/public
  * @author     maicol07 <maicolbattistini@live.it>
  */
-class Flarum_SSO_Public {
+class SSO_Flarum_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -52,21 +48,20 @@ class Flarum_SSO_Public {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
-		add_action( 'wp_head', [ $this, 'print_wp_path_js' ] );
+		add_action( 'wp_head', array( $this, 'print_wp_path_js' ) );
 	}
 
+	/**
+	 * Print WP Path to JS Global variables
+	 */
 	public function print_wp_path_js(): void {
-		echo '
-		<script>
-		WP_PATH = "' . get_site_url() . '";
-		</script>
-		';
+		echo '<script> WP_PATH = "' . esc_js( get_site_url() ) . '"; </script>';
 	}
 
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
-	 * @param string $hook Page ID
+	 * @param string $hook Page ID.
 	 *
 	 * @since    1.0.0
 	 */
@@ -78,12 +73,12 @@ class Flarum_SSO_Public {
 	/**
 	 * Register the JavaScript for the public-facing side of the site.
 	 *
-	 * @param string $hook Page ID
+	 * @param string $hook Page ID.
 	 *
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts( string $hook ): void {
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/sso-flarum-public.js', array( 'jquery' ), $this->version );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/sso-flarum-public.js', array( 'jquery' ), $this->version, true );
 		do_action( 'flarum_sso_plugin_add_js', $hook );
 	}
 }
