@@ -149,6 +149,8 @@ function main() {
 		global $flarum_user;
 
 		$flarum_user->attributes->username = $user->user_login;
+		$flarum_user->fetchUser();
+
 		$flarum_user->attributes->password = $password;
 		$flarum_user->attributes->email    = $user->user_email;
 		$flarum_user->attributes->bio      = $user->user_description;
