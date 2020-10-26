@@ -80,11 +80,17 @@ use Maicol07\SSO\User;
  * Main features
  */
 function main() {
+	// Checks.
+	$ok = get_option( 'flarum_sso_plugin_flarum_url' ) && get_option( 'flarum_sso_plugin_api_key' );
+	if ( ! $ok ) {
+		return;
+	}
+
 	global $flarum;
 	global $flarum_user;
 
 	$verify = get_option( 'flarum_sso_plugin_verify_ssl', true );
-	if ( is_numeric( $verify ) ) {
+	if ( empty( $verify ) || is_numeric( $verify ) ) {
 		$verify = ( (int) $verify ) ? true : false;
 	}
 
@@ -106,8 +112,8 @@ function main() {
 	if ( $user instanceof WP_User && 0 !== $user->ID ) {
 		$username = $user->user_login;
 	}
-	$flarum_user                           = new User( $username, $flarum );
-	$flarum_user                           = apply_filters( 'flarum_sso_plugin_init_flarum_user', $flarum_user );
+	$flarum_user = new User( $username, $flarum );
+	$flarum_user = apply_filters( 'flarum_sso_plugin_init_flarum_user', $flarum_user );
 
 	/**
 	 * Redirect user to Flarum

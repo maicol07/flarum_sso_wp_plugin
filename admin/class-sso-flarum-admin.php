@@ -172,7 +172,7 @@ class SSO_Flarum_Admin {
 				'get_options_list' => '',
 				'value_type'       => 'normal',
 				'wp_data'          => 'option',
-				'label'            => __( "Verify SSL", 'sso-flarum' ),
+				'label'            => __( 'Verify SSL', 'sso-flarum' ),
 			),
 			array(
 				'type'             => 'input',
