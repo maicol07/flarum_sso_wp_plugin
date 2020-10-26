@@ -52,7 +52,7 @@ class SSO_Flarum_Admin {
 		add_action( 'admin_init', array( $this, 'register_build_fields' ) );
 
 		add_filter(
-			'plugin_action_links_' . plugin_basename( __FILE__ ),
+			"plugin_action_links_{$this->plugin_name}/{$this->plugin_name}.php",
 			array( $this, 'flarum_sso_add_links_to_admin_plugins_page' )
 		);
 		add_filter( 'plugin_row_meta', array( $this, 'flarum_sso_plugin_add_meta_to_admin_plugins_page' ), 10, 2 );
@@ -290,17 +290,17 @@ class SSO_Flarum_Admin {
 	 * @return mixed
 	 */
 	public function flarum_sso_add_links_to_admin_plugins_page( array $links ): array {
+		$settings_url  = esc_url( get_admin_url() . 'options-general.php?page=sso-flarum-settings' );
+		$settings_link = '<a href="' . $settings_url . '">' . esc_html__( 'Settings', 'sso-flarum' ) . '</a>';
+
 		$donate_url  = esc_url( 'https://www.paypal.me/maicol072001/10eur' );
 		$donate_link = '<a href="' . $donate_url . '">' . esc_html__( 'Donate', 'sso-flarum' ) . '</a>';
 
-		// Prepend donate link to links array.
-		array_unshift( $links, $donate_link );
+		$docs_url  = esc_url( 'https://docs.maicol07.it' );
+		$docs_link = '<a href="' . $docs_url . '">' . esc_html__( 'Docs', 'sso-flarum' ) . '</a>';
 
-		$url           = esc_url( get_admin_url() . 'options-general.php?page=sso-flarum-settings' );
-		$settings_link = '<a href="' . $url . '">' . esc_html__( 'Settings', 'sso-flarum' ) . '</a>';
-
-		// Prepend settings link to links array.
-		array_unshift( $links, $settings_link );
+		// Prepend new link to links array.
+		array_unshift( $links, $settings_link, $donate_link, $docs_link );
 
 		return $links;
 	}
@@ -314,16 +314,17 @@ class SSO_Flarum_Admin {
 	 * @return array
 	 */
 	public function flarum_sso_plugin_add_meta_to_admin_plugins_page( array $links, string $file ): array {
-		if ( strpos( $file, plugin_basename( __FILE__ ) ) !== false ) {
-			$donate_url = esc_url( 'https://www.paypal.me/maicol072001/10eur' );
+		if ( strpos( $file, $this->plugin_name ) !== false ) {
+			$settings_url = esc_url( get_admin_url() . 'options-general.php?page=sso-flarum-settings' );
+			$review_url   = esc_url( 'https://wordpress.org/support/plugin/sso-flarum/reviews/#new-post' );
+			$donate_url   = esc_url( 'https://www.paypal.me/maicol072001/10eur' );
+			$docs_url     = esc_url( 'https://docs.maicol07.it' );
 
-			$url = esc_url( get_admin_url() . 'options-general.php?page=sso-flarum-settings' );
-
-			$review_url = esc_url( 'https://wordpress.org/support/plugin/sso-flarum/reviews/#new-post' );
-			$new_links  = array(
-				'<a href="' . $url . '"><span class="dashicons dashicons-admin-generic"></span> ' . __( 'Settings', 'sso-flarum' ) . '</a>',
+			$new_links = array(
+				'<a href="' . $settings_url . '"><span class="dashicons dashicons-admin-generic"></span> ' . __( 'Settings', 'sso-flarum' ) . '</a>',
 				'<a href="' . $review_url . '"><span class="dashicons dashicons-star-filled"></span> ' . __( 'Leave a review', 'sso-flarum' ) . '</a>',
 				'<a href="' . $donate_url . '"><span class="dashicons dashicons-heart"></span> ' . __( 'Donate', 'sso-flarum' ) . '</a>',
+				'<a href="' . $docs_url . '"><span class="dashicons dashicons-heart"></span> ' . __( 'Donate', 'sso-flarum' ) . '</a>',
 			);
 
 			// Add new links to existing links.
