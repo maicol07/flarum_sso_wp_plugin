@@ -4,7 +4,7 @@
  *
  * @package sso-flarum
  */
-
+do_action( 'flarum_sso_plugin_settings_page' );
 ?>
 
 <div class="wrap">
@@ -43,7 +43,8 @@
 				<p><?php esc_html_e( 'These are settings configurable only for installed addons.' ); ?></p>
 				<?php
 				$addons = array(
-						'memberpress' => 'Memberpress',
+						'memberpress' => __( 'Memberpress', 'sso-flarum' ),
+						'jwt'         => __( 'JWT (Json Web Token)', 'sso-flarum' ),
 				);
 				foreach ( $addons as $addon => $addon_text ) {
 					if ( is_plugin_active( "flarum-sso-{$addon}-addon/flarum-sso-{$addon}-addon.php" ) ) {
