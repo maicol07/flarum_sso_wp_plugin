@@ -4,6 +4,7 @@
  *
  * @package sso-flarum
  */
+
 do_action( 'flarum_sso_plugin_settings_page' );
 ?>
 
@@ -58,7 +59,10 @@ do_action( 'flarum_sso_plugin_settings_page' );
 					<div class="card no-wp">
 						<header class="card-header">
 							<p class="card-header-title">
-								<?php echo esc_html( $addon_text ); ?>
+								<?php
+								echo esc_html( $addon_text );
+								do_action( "flarum_sso_plugin_settings_{$addon}_title" );
+								?>
 							</p>
 							<span class="card-header-icon">
 								<span class="badge badge-<?php echo esc_attr( $badge_class ); ?>">
