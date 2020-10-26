@@ -65,7 +65,7 @@ class SSO_Flarum_Admin {
 		add_submenu_page(
 			'options-general.php',
 			__( 'Flarum SSO Plugin Settings', 'sso-flarum' ),
-			__( 'Flarum SSO plugin', 'sso-flarum' ),
+			__( 'Flarum SSO Plugin', 'sso-flarum' ),
 			'administrator',
 			$this->plugin_name . '-settings',
 			array( $this, 'display_plugin_admin_settings' )
@@ -172,7 +172,7 @@ class SSO_Flarum_Admin {
 				'get_options_list' => '',
 				'value_type'       => 'normal',
 				'wp_data'          => 'option',
-				'label'            => __( "Verify SSL (uncheck only if you don't have a valid SSL certificate, like a self-signed one)", 'sso-flarum' ),
+				'label'            => __( "Verify SSL", 'sso-flarum' ),
 			),
 			array(
 				'type'             => 'input',
@@ -183,7 +183,7 @@ class SSO_Flarum_Admin {
 				'get_options_list' => '',
 				'value_type'       => 'normal',
 				'wp_data'          => 'option',
-				'label'            => __( 'SSL certificate absolute path (optional if you have disabled the verify ssl option)', 'sso-flarum' ),
+				'label'            => __( 'SSL certificate absolute path', 'sso-flarum' ),
 			),
 		);
 
