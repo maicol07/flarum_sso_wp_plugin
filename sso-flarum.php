@@ -96,7 +96,7 @@ function main() {
 			'password_token'    => get_option( 'flarum_sso_plugin_password_token' ),
 			'lifetime'          => get_option( 'flarum_sso_plugin_lifetime', 14 ),
 			'verify_ssl'        => $verify,
-			'set_groups_admins' => get_option( 'flarum_sso_plugin_set_groups_admins', true ),
+			'set_groups_admins' => get_option( 'flarum_sso_plugin_memberpress_addon_set_groups_admins', true ),
 		)
 	);
 	$flarum = apply_filters( 'flarum_sso_plugin_init_flarum', $flarum );
