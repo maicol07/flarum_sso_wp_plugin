@@ -1,25 +1,25 @@
 const gulp = require('gulp');
-var clean = require('gulp-clean');
-var zip = require('gulp-vinyl-zip').zip;
-var merge = require('merge-stream');
+const clean = require('gulp-clean');
+const zip = require('gulp-vinyl-zip').zip;
+const merge = require('merge-stream');
 
 function clean_files() {
-	var build = gulp.src('build', {read: false, allowEmpty: true})
+	const build = gulp.src('build', {read: false, allowEmpty: true})
 		.pipe(clean());
-	var dist = gulp.src('dist', {read: false, allowEmpty: true})
+	const dist = gulp.src('dist', {read: false, allowEmpty: true})
 		.pipe(clean());
 
 	return merge(build, dist);
 }
 
 function wp_build() {
-	var src = gulp.src('../src/**')
+	const src = gulp.src('../src/**')
 		.pipe(gulp.dest('build/includes/src'));
-	var wp = gulp.src([
-	    '**',
-        '!**/node_modules/',
-        '!**/node_modules/**/*'
-    ]).pipe(gulp.dest('build/'));
+	const wp = gulp.src([
+		'**',
+		'!**/node_modules/',
+		'!**/node_modules/**/*'
+	]).pipe(gulp.dest('build/'));
 
 	return merge(src, wp);
 }
