@@ -296,7 +296,7 @@ class SSO_Flarum_Admin {
 		$donate_url  = esc_url( 'https://www.paypal.me/maicol072001/10eur' );
 		$donate_link = '<a href="' . $donate_url . '">' . esc_html__( 'Donate', 'sso-flarum' ) . '</a>';
 
-		$docs_url  = esc_url( 'https://docs.maicol07.it' );
+		$docs_url  = esc_url( 'https://docs.maicol07.it/en/flarum-sso/plugins/wordpress' );
 		$docs_link = '<a href="' . $docs_url . '">' . esc_html__( 'Docs', 'sso-flarum' ) . '</a>';
 
 		// Prepend new link to links array.
@@ -318,7 +318,7 @@ class SSO_Flarum_Admin {
 			$settings_url = esc_url( get_admin_url() . 'options-general.php?page=sso-flarum-settings' );
 			$review_url   = esc_url( 'https://wordpress.org/support/plugin/sso-flarum/reviews/#new-post' );
 			$donate_url   = esc_url( 'https://www.paypal.me/maicol072001/10eur' );
-			$docs_url     = esc_url( 'https://docs.maicol07.it' );
+			$docs_url     = esc_url( 'https://docs.maicol07.it/en/flarum-sso/plugins/wordpress' );
 
 			$new_links = array(
 				'<a href="' . $settings_url . '"><span class="dashicons dashicons-admin-generic"></span> ' . __( 'Settings', 'sso-flarum' ) . '</a>',

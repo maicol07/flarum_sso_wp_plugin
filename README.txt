@@ -20,14 +20,12 @@ Plugin for your WordPress website to get the Flarum SSO extension working
 
 ## Pre-installation
 
-You need to create a random token (40 characters, you can use [this tool](https://onlinerandomtools.com/generate-random-string) to make one)
-and put it into the `api_keys` table of your Flarum database.
-You only need to set the `key` column and the `user_id` one. In the first one write your new generated token and in the latter your admin user id.
+Check the [docs](https://docs.maicol07.it/en/flarum-sso/ext) to know how to get started with the Flarum SSO Extension
 
-## Pro Features
-There are some pro features in this plugin that can only be used with a pro subscription. You can view plans [here](https://docs.maicol07.it/docs/en/flarum_sso/plugin/pro)
+## Premium Addons
+There are some premium addon you can subscribe to if you want to use them. You can see what they are [here](https://docs.maicol07.it/docs/en/flarum_sso/plugin/pro)
 ### Integrations
-- This plugin integrates with the Membership plugin, allowing to sync user role in Flarum
+- This plugin integrates with the Memberpress plugin, allowing to sync user role in Flarum
 
 
 == Installation ==
@@ -46,7 +44,7 @@ There are some pro features in this plugin that can only be used with a pro subs
 Check the Installation tab
 
 = Where can I get help? =
-You can check the [documentation](https://docs.maicol07.it/docs/en/flarum_sso/plugin/introduction) first.
+You can check the [documentation](https://docs.maicol07.it/en/flarum-sso/plugins/wordpress) first.
 If that didn't help, you can open a discussion on the [community](https://community.maicol07.it) in the relevant category.
 
 == Changelog ==
@@ -54,7 +52,7 @@ If that didn't help, you can open a discussion on the [community](https://commun
 #### ➕ New Features
 - ❗️ Update user username, email or password on Flarum (check API documentation)
 - Set user groups on signup
-- ❗️ Plugin has been renamed, so follow the [upgrade](https://docs.maicol07.it/docs/en/flarum_sso/plugin/upgrade) instructions.
+- ❗️ Plugin has been renamed, so follow the [upgrade](https://docs.maicol07.it/en/flarum-sso/plugins/wordpress#upgrading) instructions.
 - Memberpress Integration: change password, forgot password links now redirects to WP
 - Finally available in the WordPress Plugin Directory
 #### ⭐️ Improvements
@@ -62,7 +60,7 @@ If that didn't help, you can open a discussion on the [community](https://commun
 - Updated dependencies
 #### 🐛 Fixes
 - ❗️ Fixed the `not_authenticated` error (https://discuss.flarum.org/d/21666-single-sign-on-sso-with-wordpress-integration/157)
-- Fixed logout on Flarum (see [#FSSOE-1](https://bugs.maicol07.it/issue/FSSOE-1))
+- Fixed logout on Flarum (see [#FSSOE-1](https://tracker.maicol07.it/issue/FSSOE-1))
 - Other fixes
 
 = 1.0 =

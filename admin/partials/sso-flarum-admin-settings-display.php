@@ -20,7 +20,7 @@ do_action( 'flarum_sso_plugin_settings_page' );
 				<p>
 					<?php
 					echo __(
-							'These settings apply to all Flarum SSO Plugin functionality. To know more about something check the <a href="https://docs.maicol07.it/en/flarum_sso_plugin/wp/introduction">docs</a>.',
+							'These settings apply to all Flarum SSO Plugin functionality. To know more about something check the <a href="https://docs.maicol07.it/en/flarum-sso/plugins/wordpress">docs</a>.',
 							'sso-flarum'
 					);
 					?>
