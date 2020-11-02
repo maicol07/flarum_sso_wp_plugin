@@ -28,3 +28,8 @@ composer.lock
 yarn.lock
 
 .idea
+
+build
+dist
+
+svn
