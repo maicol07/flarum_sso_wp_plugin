@@ -48,6 +48,37 @@ You can check the [documentation](https://docs.maicol07.it/en/flarum-sso/plugins
 If that didn't help, you can open a discussion on the [community](https://community.maicol07.it) in the relevant category.
 
 == Changelog ==
+= 2.0 - The modular update (2020-11-02) =
+:boom: Requires PHP 7.2+ and the JSON extension
+### :heavy_plus_sign: Added
+- All the changes from PHP plugin
+- :pencil2: When an user is updated, it will get updated in Flarum too
+- :art: New settings page design
+- Detached plugin settings from addons ones
+- Supported login with email and password [`#FSSOE-11`](https://tracker.maicol07.it/issue/FSSOE-11)
+
+### :star: Improvements
+- :memo: Revamped docs
+
+### :hammer_and_wrench: Fixes
+- :bug: :envelope: Can't update email [`#FSSOE-12`](https://tracker.maicol07.it/issue/FSSOE-12)
+- :rotating_light: Exception on login in some cases [`#FSSOE-10`](https://tracker.maicol07.it/issue/FSSOE-10)
+
+= 1.2 (2020-04-22) =
+### :heavy_plus_sign: New Features
+- All the new features from the PHP plugin (added option to settings)
+
+### :star: Improvements
+- Code style improvements
+- Updated dependencies
+
+### :hammer_and_wrench: Fixes
+- Fixes from PHP plugin
+- Removing PRO key didn't deactivate PRO features
+- MEMBERPRESS: Groups weren't deleted if user has no memberships
+
+## 1.1.2 (2020-04-20)
+- Changes from PHP Plugin
 = 1.1 =
 #### ➕ New Features
 - ❗️ Update user username, email or password on Flarum (check API documentation)
@@ -70,6 +101,12 @@ If that didn't help, you can open a discussion on the [community](https://commun
 - Memberpress plugin integration (PRO FEATURE)
 
 == Upgrade Notice ==
+= 2.0 =
+New features, improvements, new JWT addon, improvements and fixes
+
+= 1.2 =
+New features, memberpress addon, improvements and fixes
+
 = 1.1 =
 New features, several major fixes
 
