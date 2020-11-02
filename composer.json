@@ -3,13 +3,13 @@
   "description": "WordPress plugin to get Flarum SSO working",
   "type": "project",
   "require": {
-    "php": ">=7.2",
-    "ext-json": "*",
-    "ext-curl": "*",
+	"php": ">=7.2",
+	"ext-json": "*",
+	"ext-curl": "*",
 	"delight-im/cookie": "^3",
 	"eastwest/json": "^3",
 	"maicol07/flarum-api-client": "^1",
-	"maicol07/flarum-sso-plugin": "dev-master"
+	"maicol07/flarum-sso-plugin": "^1"
   },
   "require-dev": {
 	"roave/security-advisories": "dev-master",
