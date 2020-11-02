@@ -30,7 +30,15 @@ function wp_build() {
 		'!**/svn/',
 		'!**/svn/**/*',
 		'!**/node_modules/',
-		'!**/node_modules/**/*'
+		'!**/node_modules/**/*',
+		'!**/vendor/maicol07/flarum-sso-plugin/docs',
+		'!**/vendor/maicol07/flarum-sso-plugin/docs/**/*',
+		'!**/vendor/maicol07/flarum-api-client/docs',
+		'!**/vendor/maicol07/flarum-api-client/docs/**/*',
+		'!**/vendor/squizlabs',
+		'!**/vendor/squizlabs/**/*',
+		'!**/vendor/wp-coding-standards',
+		'!**/vendor/wp-coding-standards/**/*'
 	]).pipe(gulp.dest('build/'));
 }
 

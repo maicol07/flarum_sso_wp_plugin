@@ -28,6 +28,5 @@
 	"gulp": "^4",
 	"gulp-vinyl-zip": "^2",
 	"merge-stream": "^2"
-  },
-  "dependencies": {}
+  }
 }
