@@ -9,7 +9,7 @@
 	"delight-im/cookie": "^3",
 	"eastwest/json": "^3",
 	"maicol07/flarum-api-client": "^1",
-	"maicol07/flarum-sso-plugin": "^1"
+	"maicol07/flarum-sso-plugin": "^2"
   },
   "require-dev": {
 	"roave/security-advisories": "dev-master",
