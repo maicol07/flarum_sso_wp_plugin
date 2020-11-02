@@ -265,7 +265,7 @@ class SSO_Flarum_Admin {
 			return;
 		}
 		wp_enqueue_style( $this->plugin_name, plugins_url( 'css/sso-flarum-admin.css', __FILE__ ), array(), '0.2' );
-		wp_enqueue_style( $this->plugin_name . '_bulma', 'https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css', array(), '0.9.1' );
+		wp_enqueue_style( $this->plugin_name . '_bulma', plugins_url( 'css/bulma.min.css', __FILE__ ), array(), '0.9.1' );
 	}
 
 	/**
