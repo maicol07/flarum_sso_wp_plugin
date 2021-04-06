@@ -117,7 +117,7 @@ function main() {
 	 * Set Flarum remember flag.
 	 * NOTE: This function is executed before the login function. Because of this, setting the remember option is possible in this way.
 	 *
-	 * @param bool $secure_cookie Filter parameter.
+	 * @param bool  $secure_cookie Filter parameter.
 	 * @param array $credentials Filter parameter.
 	 *
 	 * @return bool
@@ -135,8 +135,8 @@ function main() {
 	/**
 	 * Redirect user to Flarum
 	 *
-	 * @param string $redirect_to If redirect to is 'forum' user get redirected to Flarum.
-	 * @param string $request_redirect The requested redirect destination URL.
+	 * @param string           $redirect_to If redirect to is 'forum' user get redirected to Flarum.
+	 * @param string           $request_redirect The requested redirect destination URL.
 	 * @param WP_User|WP_Error $user WP User (or error).
 	 *
 	 * @return string
@@ -150,14 +150,15 @@ function main() {
 
 		return $redirect_to;
 	}
+
 	add_filter( 'login_redirect', 'flarum_sso_login_redirect', 10, 3 );
 
 	/**
 	 * Login to flarum
 	 *
 	 * @param null|WP_User|WP_Error $user WordPress User (or error).
-	 * @param string $username Username typed in the login form.
-	 * @param string $password Password typed in the login form.
+	 * @param string                $username Username typed in the login form.
+	 * @param string                $password Password typed in the login form.
 	 *
 	 * @return WP_Error|WP_User
 	 */
@@ -180,6 +181,7 @@ function main() {
 
 		return $user;
 	}
+
 	add_filter( 'authenticate', 'flarum_sso_login', 35, 3 );
 
 	/**
@@ -190,6 +192,7 @@ function main() {
 
 		$flarum->logout();
 	}
+
 	add_action( 'wp_logout', 'flarum_sso_logout' );
 
 	/**
@@ -202,13 +205,14 @@ function main() {
 
 		$flarum_user->delete();
 	}
+
 	add_action( 'delete_user', 'flarum_sso_delete_user', 10 );
 
 	/**
 	 * Update user password when resetted through email link
 	 *
 	 * @param WP_User $user WP User.
-	 * @param string $password New password.
+	 * @param string  $password New password.
 	 */
 	function flarum_sso_update_user_password( WP_User $user, string $password ) {
 		global $flarum_user;
@@ -222,12 +226,13 @@ function main() {
 		$flarum_user->attributes->password = $password;
 		$flarum_user->update();
 	}
+
 	add_action( 'after_password_reset', 'flarum_sso_update_user_password', 10, 3 );
 
 	/**
 	 * Update user details in Flarum when they change
 	 *
-	 * @param int $user_id User ID.
+	 * @param int     $user_id User ID.
 	 * @param WP_User $old_user Old user data.
 	 */
 	function flarum_sso_update_details( int $user_id, WP_User $old_user ) {
@@ -246,6 +251,7 @@ function main() {
 
 		$flarum_user->update();
 	}
+
 	add_action( 'profile_update', 'flarum_sso_update_details', 10, 2 );
 }
 
