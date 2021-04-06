@@ -10,7 +10,7 @@
  * Plugin Name:       SSO for Flarum
  * Plugin URI:        https://github.com/maicol07/flarum-sso-wp-plugin
  * Description:       Plugin for your WordPress website to get the SSO extension working
- * Version:           2.0
+ * Version:           2.1
  * Author:            maicol07
  * Author URI:        https://maicol07.it
  * License:           GPL-2.0+
@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'FLARUM_SSO_VERSION', '2.0' );
+const FLARUM_SSO_VERSION = '2.1';
 
 /**
  * The code that runs during plugin activation.
@@ -74,7 +74,6 @@ run_flarum_sso();
 require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
 use Maicol07\SSO\Flarum;
-use Maicol07\SSO\User;
 
 /**
  * Main features
@@ -90,8 +89,8 @@ function main() {
 	global $flarum_user;
 
 	$verify = get_option( 'flarum_sso_plugin_verify_ssl', true );
-	if ( empty( $verify ) || is_numeric( $verify ) ) {
-		$verify = ( (int) $verify ) ? true : false;
+	if ( is_numeric( $verify ) || '' === $verify ) {
+		$verify = (bool) $verify;
 	}
 
 	$flarum = new Flarum(
@@ -100,7 +99,6 @@ function main() {
 			'root_domain'       => get_option( 'flarum_sso_plugin_root_domain' ),
 			'api_key'           => get_option( 'flarum_sso_plugin_api_key' ),
 			'password_token'    => get_option( 'flarum_sso_plugin_password_token' ),
-			'lifetime'          => get_option( 'flarum_sso_plugin_lifetime', 14 ),
 			'verify_ssl'        => $verify,
 			'set_groups_admins' => get_option( 'flarum_sso_plugin_memberpress_addon_set_groups_admins', true ),
 		)
@@ -112,8 +110,27 @@ function main() {
 	if ( $user instanceof WP_User && 0 !== $user->ID ) {
 		$username = $user->user_login;
 	}
-	$flarum_user = new User( $username, $flarum );
+	$flarum_user = $flarum->user( $username );
 	$flarum_user = apply_filters( 'flarum_sso_plugin_init_flarum_user', $flarum_user );
+
+	/**
+	 * Set Flarum remember flag.
+	 * NOTE: This function is executed before the login function. Because of this, setting the remember option is possible in this way.
+	 *
+	 * @param bool $secure_cookie Filter parameter.
+	 * @param array $credentials Filter parameter.
+	 *
+	 * @return bool
+	 */
+	function flarum_sso_set_remember( bool $secure_cookie, array $credentials ): bool {
+		global $flarum;
+
+		$flarum->isSessionRemembered( $credentials['remember'] );
+
+		return $secure_cookie;
+	}
+
+	add_filter( 'secure_signon_cookie', 'flarum_sso_set_remember', 10, 2 );
 
 	/**
 	 * Redirect user to Flarum
@@ -151,7 +168,7 @@ function main() {
 		global $flarum_user;
 
 		$flarum_user->attributes->username = $user->user_login;
-		$flarum_user->fetchUser();
+		$flarum_user->fetch();
 
 		$flarum_user->attributes->password = $password;
 		$flarum_user->attributes->email    = $user->user_email;
@@ -173,7 +190,6 @@ function main() {
 
 		$flarum->logout();
 	}
-
 	add_action( 'wp_logout', 'flarum_sso_logout' );
 
 	/**
@@ -186,7 +202,6 @@ function main() {
 
 		$flarum_user->delete();
 	}
-
 	add_action( 'delete_user', 'flarum_sso_delete_user', 10 );
 
 	/**
@@ -198,10 +213,15 @@ function main() {
 	function flarum_sso_update_user_password( WP_User $user, string $password ) {
 		global $flarum_user;
 
+		// Force fetching the user.
+		if ( empty( $flarum_user->id ) ) {
+			$flarum_user->attributes->username = $user->user_login;
+			$flarum_user->fetch();
+		}
+
 		$flarum_user->attributes->password = $password;
 		$flarum_user->update();
 	}
-
 	add_action( 'after_password_reset', 'flarum_sso_update_user_password', 10, 3 );
 
 	/**
@@ -216,13 +236,13 @@ function main() {
 		// Don't use global user variables, as the update can be done from another user (like an admin).
 
 		$user        = get_userdata( $user_id );
-		$flarum_user = new User( $old_user->user_login, $flarum );
+		$flarum_user = $flarum->user( $old_user->user_login );
 
-		$flarum_user->attributes->username    = $user->user_login;
-		$flarum_user->attributes->email       = $user->user_email;
-		$flarum_user->attributes->bio         = $user->user_description;
-		$flarum_user->attributes->displayName = $user->display_name;
-		$flarum_user->attributes->avatarUrl   = get_avatar_url( $user, array( 'size' => 100 ) );
+		$flarum_user->attributes->username  = $user->user_login;
+		$flarum_user->attributes->email     = $user->user_email;
+		$flarum_user->attributes->bio       = $user->user_description;
+		$flarum_user->attributes->nickname  = $user->display_name;
+		$flarum_user->attributes->avatarUrl = get_avatar_url( $user, array( 'size' => 100 ) );
 
 		$flarum_user->update();
 	}
