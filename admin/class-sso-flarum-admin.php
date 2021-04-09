@@ -154,17 +154,6 @@ class SSO_Flarum_Admin {
 			),
 			array(
 				'type'             => 'input',
-				'subtype'          => 'number',
-				'id'               => 'flarum_sso_plugin_lifetime',
-				'name'             => 'flarum_sso_plugin_lifetime',
-				'required'         => 'true',
-				'get_options_list' => '',
-				'value_type'       => 'normal',
-				'wp_data'          => 'option',
-				'label'            => __( 'Token Lifetime', 'sso-flarum' ),
-			),
-			array(
-				'type'             => 'input',
 				'subtype'          => 'checkbox',
 				'id'               => 'flarum_sso_plugin_verify_ssl',
 				'name'             => 'flarum_sso_plugin_verify_ssl',
@@ -189,7 +178,6 @@ class SSO_Flarum_Admin {
 
 		// Default values.
 		$values = array(
-			'lifetime'    => 14,
 			'root_domain' => get_site_url(),
 			'verify_ssl'  => true,
 		);
