@@ -1,20 +1,34 @@
 const gulp = require('gulp');
 const del = require('del');
-const zip = require('gulp-vinyl-zip').zip;
-const merge = require('merge-stream');
+const {zip} = require('gulp-vinyl-zip');
+
+const files = [
+	'**/*',
+	'*',
+	'!wp-cli.phar',
+	'!**/svn/',
+	'!**/svn/**/*',
+	'!**/node_modules/',
+	'!**/node_modules/**/*',
+	'!**/vendor/maicol07/flarum-api-client/docs',
+	'!**/vendor/maicol07/flarum-api-client/docs/**/*',
+	'!**/vendor/maicol07/flarum-sso-plugin/docs',
+	'!**/vendor/maicol07/flarum-sso-plugin/docs/**/*',
+	'!**/vendor/maicol07/flarum-sso-plugin/example',
+	'!**/vendor/maicol07/flarum-sso-plugin/example/**/*',
+	'!**/vendor/squizlabs',
+	'!**/vendor/squizlabs/**/*',
+	'!**/vendor/wp-coding-standards',
+	'!**/vendor/wp-coding-standards/**/*'
+];
 
 /**
  * Clean (deletes) the build and dist directories
  *
  * @returns {*}
  */
-function clean_files() {
-	return del([
-		'build/**/*',
-		'/build/',
-		'dist/**/*',
-		'/dist/'
-	]);
+function clean() {
+	return del('sso-flarum.zip');
 }
 
 /**
@@ -22,37 +36,9 @@ function clean_files() {
  *
  * @returns {*}
  */
-function wp_build() {
-	return gulp.src([
-		'**',
-		'index.php',
-		'!wp-cli.phar',
-		'!**/svn/',
-		'!**/svn/**/*',
-		'!**/node_modules/',
-		'!**/node_modules/**/*',
-		'!**/vendor/maicol07/flarum-api-client/docs',
-		'!**/vendor/maicol07/flarum-api-client/docs/**/*',
-		'!**/vendor/maicol07/flarum-sso-plugin/docs',
-		'!**/vendor/maicol07/flarum-sso-plugin/docs/**/*',
-		'!**/vendor/maicol07/flarum-sso-plugin/example',
-		'!**/vendor/maicol07/flarum-sso-plugin/example/**/*',
-		'!**/vendor/squizlabs',
-		'!**/vendor/squizlabs/**/*',
-		'!**/vendor/wp-coding-standards',
-		'!**/vendor/wp-coding-standards/**/*'
-	]).pipe(gulp.dest('build/'));
-}
-
-/**
- * Create the plugin zip
- *
- * @returns {*}
- */
-function wp_zip() {
-	return gulp.src('build/**/*')
-		.pipe(zip('sso-flarum.zip'))
-		.pipe(gulp.dest('dist'));
+function pack() {
+	return gulp.src(files).pipe(zip('sso-flarum.zip'))
+		.pipe(gulp.dest('./'));
 }
 
 /**
@@ -65,10 +51,10 @@ function copy_svn() {
 		'svn/**/*',
 		'!svn/.svn/**/*'
 	]);
-	return gulp.src('build/**/*').pipe(gulp.dest('svn'));
+	return gulp.src(files).pipe(gulp.dest('svn'));
 }
 
-exports.default = gulp.series(clean_files, wp_build, copy_svn);
-exports.clean = clean_files;
-exports.zip = wp_zip;
+exports.default = gulp.series(clean, pack, copy_svn);
+exports.clean = clean;
+exports.zip = pack;
 exports.copy_svn = copy_svn;

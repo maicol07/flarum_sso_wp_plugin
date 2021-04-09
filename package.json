@@ -4,8 +4,7 @@
   "main": "gulpfile.js",
   "scripts": {
 	"build": "php wp-cli.phar i18n make-pot . languages/sso-flarum.pot && gulp",
-	"wp_dist": "gulp zip",
-	"release": "composer update && yarn run build && yarn run wp_dist"
+	"release": "composer update && yarn run build && yarn run build"
   },
   "repository": {
     "type": "git",
@@ -26,7 +25,6 @@
   "devDependencies": {
 	"del": "^6",
 	"gulp": "^4",
-	"gulp-vinyl-zip": "^2",
-	"merge-stream": "^2"
+	"gulp-vinyl-zip": "^2"
   }
 }
