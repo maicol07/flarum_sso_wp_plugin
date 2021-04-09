@@ -48,6 +48,10 @@ You can check the [documentation](https://docs.maicol07.it/en/flarum-sso/plugins
 If that didn't help, you can open a discussion on the [community](https://community.maicol07.it) in the relevant category.
 
 == Changelog ==
+= 2.1 =
+- ✨ Update to PHP plugin v3
+- 🐛 Fixed a bug where deactivating the plugin from WP dashboard caused a fatal error ([FSSOE-16](https://tracker.maicol07.it/issue/FSSOE-16))
+
 = 2.0 - The modular update (2020-11-02) =
 :boom: Requires PHP 7.2+ and the JSON extension
 ### :heavy_plus_sign: Added

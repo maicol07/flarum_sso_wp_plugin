@@ -1,15 +1,15 @@
-# Copyright (C) 2020 maicol07
+# Copyright (C) 2021 maicol07
 # This file is distributed under the same license as the SSO for Flarum plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: SSO for Flarum 2.0\n"
+"Project-Id-Version: SSO for Flarum 2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flarum_sso_wp_plugin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-11-02T19:11:52+01:00\n"
+"POT-Creation-Date: 2021-04-09T17:15:07+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: sso-flarum\n"
@@ -35,136 +35,111 @@ msgid "https://maicol07.it"
 msgstr ""
 
 #: admin/class-sso-flarum-admin.php:67
-#: build/admin/class-sso-flarum-admin.php:67
 #: svn/admin/class-sso-flarum-admin.php:67
 msgid "Flarum SSO Plugin Settings"
 msgstr ""
 
 #: admin/class-sso-flarum-admin.php:68
-#: build/admin/class-sso-flarum-admin.php:68
 #: svn/admin/class-sso-flarum-admin.php:68
 msgid "Flarum SSO Plugin"
 msgstr ""
 
 #: admin/class-sso-flarum-admin.php:109
-#: build/admin/class-sso-flarum-admin.php:109
 #: svn/admin/class-sso-flarum-admin.php:109
 msgid "Enable SSO"
 msgstr ""
 
 #: admin/class-sso-flarum-admin.php:120
-#: build/admin/class-sso-flarum-admin.php:120
 #: svn/admin/class-sso-flarum-admin.php:120
 msgid "Flarum URL"
 msgstr ""
 
 #: admin/class-sso-flarum-admin.php:131
-#: build/admin/class-sso-flarum-admin.php:131
 #: svn/admin/class-sso-flarum-admin.php:131
 msgid "Root Domain"
 msgstr ""
 
 #: admin/class-sso-flarum-admin.php:142
-#: build/admin/class-sso-flarum-admin.php:142
 #: svn/admin/class-sso-flarum-admin.php:142
 msgid "API Key"
 msgstr ""
 
 #: admin/class-sso-flarum-admin.php:153
-#: build/admin/class-sso-flarum-admin.php:153
 #: svn/admin/class-sso-flarum-admin.php:153
 msgid "Password Token"
 msgstr ""
 
 #: admin/class-sso-flarum-admin.php:164
-#: build/admin/class-sso-flarum-admin.php:164
-#: svn/admin/class-sso-flarum-admin.php:164
-msgid "Token Lifetime"
-msgstr ""
-
-#: admin/class-sso-flarum-admin.php:175
-#: build/admin/class-sso-flarum-admin.php:175
 #: svn/admin/class-sso-flarum-admin.php:175
 msgid "Verify SSL"
 msgstr ""
 
-#: admin/class-sso-flarum-admin.php:186
-#: build/admin/class-sso-flarum-admin.php:186
+#: admin/class-sso-flarum-admin.php:175
 #: svn/admin/class-sso-flarum-admin.php:186
 msgid "SSL certificate absolute path"
 msgstr ""
 
-#: admin/class-sso-flarum-admin.php:294
-#: admin/class-sso-flarum-admin.php:324
-#: build/admin/class-sso-flarum-admin.php:294
-#: build/admin/class-sso-flarum-admin.php:324
+#: admin/class-sso-flarum-admin.php:282
+#: admin/class-sso-flarum-admin.php:312
 #: svn/admin/class-sso-flarum-admin.php:294
 #: svn/admin/class-sso-flarum-admin.php:324
 msgid "Settings"
 msgstr ""
 
-#: admin/class-sso-flarum-admin.php:297
-#: admin/class-sso-flarum-admin.php:326
-#: admin/class-sso-flarum-admin.php:327
-#: build/admin/class-sso-flarum-admin.php:297
-#: build/admin/class-sso-flarum-admin.php:326
-#: build/admin/class-sso-flarum-admin.php:327
+#: admin/class-sso-flarum-admin.php:285
+#: admin/class-sso-flarum-admin.php:314
+#: admin/class-sso-flarum-admin.php:315
 #: svn/admin/class-sso-flarum-admin.php:297
 #: svn/admin/class-sso-flarum-admin.php:326
 #: svn/admin/class-sso-flarum-admin.php:327
 msgid "Donate"
 msgstr ""
 
-#: admin/class-sso-flarum-admin.php:300
-#: build/admin/class-sso-flarum-admin.php:300
+#: admin/class-sso-flarum-admin.php:288
 #: svn/admin/class-sso-flarum-admin.php:300
 msgid "Docs"
 msgstr ""
 
-#: admin/class-sso-flarum-admin.php:325
-#: build/admin/class-sso-flarum-admin.php:325
+#: admin/class-sso-flarum-admin.php:313
 #: svn/admin/class-sso-flarum-admin.php:325
 msgid "Leave a review"
 msgstr ""
 
 #: admin/partials/sso-flarum-admin-settings-display.php:13
-#: build/admin/partials/sso-flarum-admin-settings-display.php:13
 #: svn/admin/partials/sso-flarum-admin-settings-display.php:13
 msgid "Flarum SSO Settings"
 msgstr ""
 
 #: admin/partials/sso-flarum-admin-settings-display.php:19
-#: build/admin/partials/sso-flarum-admin-settings-display.php:19
 #: svn/admin/partials/sso-flarum-admin-settings-display.php:19
 msgid "General settings"
 msgstr ""
 
 #: admin/partials/sso-flarum-admin-settings-display.php:22
-#: build/admin/partials/sso-flarum-admin-settings-display.php:22
 #: svn/admin/partials/sso-flarum-admin-settings-display.php:22
 msgid "These settings apply to all Flarum SSO Plugin functionality. To know more about something check the <a href=\"https://docs.maicol07.it/en/flarum-sso/plugins/wordpress\">docs</a>."
 msgstr ""
 
 #: admin/partials/sso-flarum-admin-settings-display.php:47
-#: build/admin/partials/sso-flarum-admin-settings-display.php:47
 #: svn/admin/partials/sso-flarum-admin-settings-display.php:47
 msgid "Memberpress"
 msgstr ""
 
 #: admin/partials/sso-flarum-admin-settings-display.php:48
-#: build/admin/partials/sso-flarum-admin-settings-display.php:48
 #: svn/admin/partials/sso-flarum-admin-settings-display.php:48
 msgid "JWT (Json Web Token)"
 msgstr ""
 
 #: admin/partials/sso-flarum-admin-settings-display.php:52
-#: build/admin/partials/sso-flarum-admin-settings-display.php:52
 #: svn/admin/partials/sso-flarum-admin-settings-display.php:52
 msgid "ACTIVE"
 msgstr ""
 
 #: admin/partials/sso-flarum-admin-settings-display.php:55
-#: build/admin/partials/sso-flarum-admin-settings-display.php:55
 #: svn/admin/partials/sso-flarum-admin-settings-display.php:55
 msgid "NOT ACTIVE"
+msgstr ""
+
+#: svn/admin/class-sso-flarum-admin.php:164
+msgid "Token Lifetime"
 msgstr ""
