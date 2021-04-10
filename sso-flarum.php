@@ -198,15 +198,20 @@ function main() {
 	/**
 	 * Delete the user from Flarum when has been deleted from WP
 	 *
-	 * @param int $user_id User ID.
+	 * @param int      $user_id ID of the user to delete.
+	 * @param int|null $reassign ID of the user to reassign posts and links to.
+	 *                           Default null, for no reassignment.
+	 * @param WP_User  $user WP_User object of the user to delete.
 	 */
-	function flarum_sso_delete_user( int $user_id ) {
+	function flarum_sso_delete_user( int $user_id, ?int $reassign, WP_User $user ) {
 		global $flarum_user;
 
+		$flarum_user->attributes->username = $user->user_login;
+		$flarum_user->fetch();
 		$flarum_user->delete();
 	}
 
-	add_action( 'delete_user', 'flarum_sso_delete_user', 10 );
+	add_action( 'delete_user', 'flarum_sso_delete_user', 10, 3 );
 
 	/**
 	 * Update user password when resetted through email link
