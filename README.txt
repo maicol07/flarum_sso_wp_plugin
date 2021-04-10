@@ -4,7 +4,7 @@ Donate link: https://paypal.me/maicol072001/10eur
 Tags: flarum, sso, extension, plugin, php, authentication, forum, auth
 Requires at least: 4.4
 Tested up to: 5.7
-Stable tag: 2.1
+Stable tag: 2.1.1
 Requires PHP: 7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -27,7 +27,6 @@ There are some premium addon you can subscribe to if you want to use them. You c
 ### Integrations
 - This plugin integrates with the Memberpress plugin, allowing to sync user role in Flarum
 
-
 == Installation ==
 
 1. Upload `sso-flarum.zip` to the `/wp-content/plugins/` directory
@@ -48,6 +47,9 @@ You can check the [documentation](https://docs.maicol07.it/en/flarum-sso/plugins
 If that didn't help, you can open a discussion on the [community](https://community.maicol07.it) in the relevant category.
 
 == Changelog ==
+= 2.1.1 =
+- 🐛 Fixed a bug where deleting one or multiple users from the WP dashboard causes a server exception
+
 = 2.1 =
 - ✨ Update to PHP plugin v3
 - 🐛 Fixed a bug where deactivating the plugin from WP dashboard caused a fatal error ([FSSOE-16](https://tracker.maicol07.it/issue/FSSOE-16))
