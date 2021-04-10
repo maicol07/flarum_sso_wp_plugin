@@ -6,7 +6,7 @@ const files = [
 	'**/*',
 	'*',
 	'!wp-cli.phar',
-	'!**/svn/',
+	'!**/svn',
 	'!**/svn/**/*',
 	'!**/node_modules/',
 	'!**/node_modules/**/*',
@@ -14,6 +14,8 @@ const files = [
 	'!**/vendor/maicol07/flarum-api-client/docs/**/*',
 	'!**/vendor/maicol07/flarum-sso-plugin/docs',
 	'!**/vendor/maicol07/flarum-sso-plugin/docs/**/*',
+	'!**/vendor/maicol07/flarum-sso-plugin/documentation',
+	'!**/vendor/maicol07/flarum-sso-plugin/documentation/**/*',
 	'!**/vendor/maicol07/flarum-sso-plugin/example',
 	'!**/vendor/maicol07/flarum-sso-plugin/example/**/*',
 	'!**/vendor/squizlabs',
@@ -47,10 +49,6 @@ function pack() {
  * @returns {*}
  */
 function copy_svn() {
-	del([
-		'svn/**/*',
-		'!svn/.svn/**/*'
-	]);
 	return gulp.src(files).pipe(gulp.dest('svn'));
 }
 
