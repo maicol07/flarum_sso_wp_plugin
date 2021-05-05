@@ -1,7 +1,7 @@
 {
   "name": "maicol07/flarum_sso_plugin_wp",
   "description": "WordPress plugin to get Flarum SSO working",
-  "type": "project",
+  "type": "wordpress-plugin",
   "require": {
 	"php": ">=7.3",
 	"ext-json": "*",
@@ -36,5 +36,11 @@
 	  "name": "Maicol",
 	  "email": "maicolbattistini@live.it"
 	}
-  ]
+  ],
+  "config": {
+	"platform": {
+	  "php": "7.3"
+	},
+	"optimize-autoloader": true
+  }
 }
