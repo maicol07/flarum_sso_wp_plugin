@@ -3,8 +3,8 @@
   "description": "Plugin for your WP website to get the SSO extension working",
   "main": "gulpfile.js",
   "scripts": {
-	"build": "php wp-cli.phar i18n make-pot . languages/sso-flarum.pot && gulp",
-	"release": "composer update && yarn run build && yarn run build"
+	"lang": "php wp-cli.phar i18n make-pot . languages/sso-flarum.pot",
+	"release": "yarn run lang && gulp"
   },
   "repository": {
     "type": "git",

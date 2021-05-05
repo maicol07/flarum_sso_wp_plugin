@@ -5,6 +5,7 @@ const {zip} = require('gulp-vinyl-zip');
 const files = [
 	'**/*',
 	'*',
+	'!sso-flarum.zip',
 	'!wp-cli.phar',
 	'!**/svn',
 	'!**/svn/**/*',
