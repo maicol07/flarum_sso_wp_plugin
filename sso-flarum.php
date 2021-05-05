@@ -252,7 +252,7 @@ function main() {
 		$flarum_user->attributes->email     = $user->user_email;
 		$flarum_user->attributes->bio       = $user->user_description;
 		$flarum_user->attributes->nickname  = $user->display_name;
-		$flarum_user->attributes->avatarUrl = get_avatar_url( $user, array( 'size' => 100 ) );
+		$flarum_user->attributes->avatarUrl = get_avatar_url( $user_id, array( 'size' => 100 ) );
 
 		$flarum_user->update();
 	}
