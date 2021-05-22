@@ -4,7 +4,7 @@
   "main": "gulpfile.js",
   "scripts": {
 	"lang": "php wp-cli.phar i18n make-pot . languages/sso-flarum.pot",
-	"release": "yarn run lang && gulp"
+	"release": "npm run lang && gulp"
   },
   "repository": {
     "type": "git",

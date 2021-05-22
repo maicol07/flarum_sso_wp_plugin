@@ -50,7 +50,7 @@ function pack() {
  * @returns {*}
  */
 function copy_svn() {
-	return gulp.src(files).pipe(gulp.dest('svn'));
+	return gulp.src(files + ['!**/vendor', '!**/vendor/**/*']).pipe(gulp.dest('svn'));
 }
 
 exports.default = gulp.series(clean, pack, copy_svn);
