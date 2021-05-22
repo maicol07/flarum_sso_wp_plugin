@@ -7,6 +7,7 @@ const files = [
 	'*',
 	'!sso-flarum.zip',
 	'!wp-cli.phar',
+	'!yarn-error.log',
 	'!**/svn',
 	'!**/svn/**/*',
 	'!**/node_modules/',
