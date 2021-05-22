@@ -164,7 +164,8 @@ function main() {
 	 */
 	function flarum_sso_login( $user, string $username, string $password ) {
 		if ( ! $user instanceof WP_User ) {
-			return new WP_Error();
+			// Return WP_Error triggered before ($user is an istance of WP_Error()) or trigger a new WP_Error if $user is null.
+			return $user ?? new WP_Error();
 		}
 		global $flarum_user;
 
