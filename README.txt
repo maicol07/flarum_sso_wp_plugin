@@ -13,6 +13,7 @@ Plugin for your WordPress website to get the Flarum SSO extension working
 
 == Description ==
 Plugin for your WordPress website to get the Flarum SSO extension working
+**Note: it is recommended to check the [docs](https://docs.maicol07.it/en/flarum-sso/plugins/wordpress), since they are actively updated!**
 
 ## Other requirements
 - [Flarum SSO Extension](https://github.com/maicol07/flarum-ext-sso) installed on your Flarum
@@ -47,6 +48,13 @@ You can check the [documentation](https://docs.maicol07.it/en/flarum-sso/plugins
 If that didn't help, you can open a discussion on the [community](https://community.maicol07.it) in the relevant category.
 
 == Changelog ==
+= 2.2 =
+- ✨ Automatic composer installer
+- ✨ Added option to toggle avatars auto sync
+- 🐛 Return a previously triggered error during login
+- 🐛 Use SSL cert path when trying to verify SSL
+- 🐛 Fixed user image always set to gravatar default
+
 = 2.1.1 =
 - 🐛 Fixed a bug where deleting one or multiple users from the WP dashboard causes a server exception
 
