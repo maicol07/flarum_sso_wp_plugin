@@ -185,6 +185,17 @@ class SSO_Flarum_Admin {
 				'wp_data'          => 'option',
 				'label'            => __( 'Update user avatar', 'sso-flarum' ),
 			),
+			array(
+				'type'             => 'input',
+				'subtype'          => 'checkbox',
+				'id'               => 'flarum_sso_plugin_disable_composer_installer',
+				'name'             => 'flarum_sso_plugin_disable_composer_installer',
+				'required'         => 'false',
+				'get_options_list' => '',
+				'value_type'       => 'normal',
+				'wp_data'          => 'option',
+				'label'            => __( 'Disable composer installer', 'sso-flarum' ),
+			),
 		);
 
 		// Default values.

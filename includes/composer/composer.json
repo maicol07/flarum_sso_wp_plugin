@@ -1,0 +1,17 @@
+{
+  "name": "maicol07/flarum-sso-wp-plugin-composer",
+  "description": "description",
+  "minimum-stability": "stable",
+  "authors": [
+	{
+	  "name": "Maicol",
+	  "email": "webmaster@maicol07.it"
+	}
+  ],
+  "require": {
+	"composer/composer": "^2"
+  },
+  "require-dev": {
+	"roave/security-advisories": "dev-latest"
+  }
+}
