@@ -92,6 +92,9 @@ function main() {
 	$verify = get_option( 'flarum_sso_plugin_verify_ssl', true );
 	if ( is_numeric( $verify ) || '' === $verify ) {
 		$verify = (bool) $verify;
+		if ( ! $verify ) {
+			$verify = get_option( 'flarum_sso_plugin_verify_ssl_cert_path', null ) ?? false;
+		}
 	}
 
 	$flarum = new Flarum(
