@@ -174,6 +174,17 @@ class SSO_Flarum_Admin {
 				'wp_data'          => 'option',
 				'label'            => __( 'SSL certificate absolute path', 'sso-flarum' ),
 			),
+			array(
+				'type'             => 'input',
+				'subtype'          => 'checkbox',
+				'id'               => 'flarum_sso_plugin_update_user_avatar',
+				'name'             => 'flarum_sso_plugin_update_user_avatar',
+				'required'         => 'false',
+				'get_options_list' => '',
+				'value_type'       => 'normal',
+				'wp_data'          => 'option',
+				'label'            => __( 'Update user avatar', 'sso-flarum' ),
+			),
 		);
 
 		// Default values.

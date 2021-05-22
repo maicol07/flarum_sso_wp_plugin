@@ -249,11 +249,14 @@ function main() {
 		$user        = get_userdata( $user_id );
 		$flarum_user = $flarum->user( $old_user->user_login );
 
-		$flarum_user->attributes->username  = $user->user_login;
-		$flarum_user->attributes->email     = $user->user_email;
-		$flarum_user->attributes->bio       = $user->user_description;
-		$flarum_user->attributes->nickname  = $user->display_name;
-		$flarum_user->attributes->avatarUrl = get_avatar_url( $user_id, array( 'size' => 100 ) );
+		$flarum_user->attributes->username = $user->user_login;
+		$flarum_user->attributes->email    = $user->user_email;
+		$flarum_user->attributes->bio      = $user->user_description;
+		$flarum_user->attributes->nickname = $user->display_name;
+
+		if ( get_option( 'flarum_sso_plugin_update_user_avatar' ) ) {
+			$flarum_user->attributes->avatarUrl = get_avatar_url( $user_id, array( 'size' => 100 ) );
+		}
 
 		$flarum_user->update();
 	}
