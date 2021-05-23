@@ -71,15 +71,15 @@ function run_flarum_sso() {
 
 run_flarum_sso();
 
-// Composer Autoloader.
-require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
-
 use Maicol07\SSO\Flarum;
 
 /**
  * Main features
  */
 function main() {
+	// Composer Autoloader.
+	require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+
 	// Checks.
 	$ok = get_option( 'flarum_sso_plugin_flarum_url' ) && get_option( 'flarum_sso_plugin_api_key' );
 	if ( ! $ok ) {
