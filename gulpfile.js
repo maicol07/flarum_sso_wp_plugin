@@ -12,6 +12,8 @@ const files = [
 	'!**/svn/**/*',
 	'!**/node_modules/',
 	'!**/node_modules/**/*',
+	'!**/vendor/bin',
+	'!**/vendor/bin/**/*',
 	'!**/vendor/maicol07/flarum-api-client/docs',
 	'!**/vendor/maicol07/flarum-api-client/docs/**/*',
 	'!**/vendor/maicol07/flarum-sso-plugin/docs',
@@ -51,7 +53,7 @@ function pack() {
  * @returns {*}
  */
 function copy_svn() {
-	return gulp.src(files.concat(['!**/vendor', '!**/vendor/**/*'])).pipe(gulp.dest('svn'));
+	return gulp.src(files.concat(['!**/vendor/symfony/polyfill-mbstring/bootstrap80.php'])).pipe(gulp.dest('svn'));
 }
 
 exports.default = gulp.series(clean, pack, copy_svn);
