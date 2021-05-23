@@ -48,6 +48,10 @@ You can check the [documentation](https://docs.maicol07.it/en/flarum-sso/plugins
 If that didn't help, you can open a discussion on the [community](https://community.maicol07.it) in the relevant category.
 
 == Changelog ==
+= 2.2.1 =
+- 🔥 Removed automatic composer installer due to issues
+- 🐛 Fixed exceptions and errors (CA Cert path and composer autoloader)
+
 = 2.2 =
 - ✨ Automatic composer installer
 - ✨ Added option to toggle avatars auto sync

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-05-22T16:02:19+00:00\n"
+"POT-Creation-Date: 2021-05-23T14:27:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: sso-flarum\n"
@@ -70,46 +70,43 @@ msgid "Password Token"
 msgstr ""
 
 #: admin/class-sso-flarum-admin.php:164
-#: svn/admin/class-sso-flarum-admin.php:175
+#: svn/admin/class-sso-flarum-admin.php:164
 msgid "Verify SSL"
 msgstr ""
 
 #: admin/class-sso-flarum-admin.php:175
-#: svn/admin/class-sso-flarum-admin.php:186
+#: svn/admin/class-sso-flarum-admin.php:175
 msgid "SSL certificate absolute path"
 msgstr ""
 
 #: admin/class-sso-flarum-admin.php:186
+#: svn/admin/class-sso-flarum-admin.php:186
 msgid "Update user avatar"
 msgstr ""
 
-#: admin/class-sso-flarum-admin.php:197
-msgid "Disable composer installer"
-msgstr ""
-
-#: admin/class-sso-flarum-admin.php:304
-#: admin/class-sso-flarum-admin.php:334
-#: svn/admin/class-sso-flarum-admin.php:294
-#: svn/admin/class-sso-flarum-admin.php:324
+#: admin/class-sso-flarum-admin.php:293
+#: admin/class-sso-flarum-admin.php:323
+#: svn/admin/class-sso-flarum-admin.php:293
+#: svn/admin/class-sso-flarum-admin.php:323
 msgid "Settings"
 msgstr ""
 
-#: admin/class-sso-flarum-admin.php:307
-#: admin/class-sso-flarum-admin.php:336
-#: admin/class-sso-flarum-admin.php:337
-#: svn/admin/class-sso-flarum-admin.php:297
+#: admin/class-sso-flarum-admin.php:296
+#: admin/class-sso-flarum-admin.php:325
+#: admin/class-sso-flarum-admin.php:326
+#: svn/admin/class-sso-flarum-admin.php:296
+#: svn/admin/class-sso-flarum-admin.php:325
 #: svn/admin/class-sso-flarum-admin.php:326
-#: svn/admin/class-sso-flarum-admin.php:327
 msgid "Donate"
 msgstr ""
 
-#: admin/class-sso-flarum-admin.php:310
-#: svn/admin/class-sso-flarum-admin.php:300
+#: admin/class-sso-flarum-admin.php:299
+#: svn/admin/class-sso-flarum-admin.php:299
 msgid "Docs"
 msgstr ""
 
-#: admin/class-sso-flarum-admin.php:335
-#: svn/admin/class-sso-flarum-admin.php:325
+#: admin/class-sso-flarum-admin.php:324
+#: svn/admin/class-sso-flarum-admin.php:324
 msgid "Leave a review"
 msgstr ""
 
@@ -146,8 +143,4 @@ msgstr ""
 #: admin/partials/sso-flarum-admin-settings-display.php:55
 #: svn/admin/partials/sso-flarum-admin-settings-display.php:55
 msgid "NOT ACTIVE"
-msgstr ""
-
-#: svn/admin/class-sso-flarum-admin.php:164
-msgid "Token Lifetime"
 msgstr ""
