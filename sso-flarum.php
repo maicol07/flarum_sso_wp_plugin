@@ -93,7 +93,8 @@ function main() {
 	if ( is_numeric( $verify ) || '' === $verify ) {
 		$verify = (bool) $verify;
 		if ( ! $verify ) {
-			$verify = get_option( 'flarum_sso_plugin_verify_ssl_cert_path', null ) ?? false;
+			$ca_path = get_option( 'flarum_sso_plugin_verify_ssl_cert_path', null );
+			$verify  = ! empty( $ca_path ) ? $ca_path : false;
 		}
 	}
 
