@@ -3,7 +3,7 @@
   "description": "WordPress plugin to get Flarum SSO working",
   "type": "wordpress-plugin",
   "require": {
-	"php": ">=7.3",
+	"php": ">=8.0",
 	"ext-json": "*",
 	"ext-curl": "*",
 	"delight-im/cookie": "^3",
@@ -39,7 +39,7 @@
   ],
   "config": {
 	"platform": {
-	  "php": "7.3"
+	  "php": "8.0"
 	},
 	"optimize-autoloader": true
   }

@@ -245,19 +245,16 @@ function main() {
 	 *
 	 * @param int     $user_id User ID.
 	 * @param WP_User $old_user Old user data.
+	 * @param array   $userdata New user data.
 	 */
-	function flarum_sso_update_details( int $user_id, WP_User $old_user ) {
+	function flarum_sso_update_details( int $user_id, WP_User $old_user, array $userdata ) {
 		global $flarum;
 
-		// Don't use global user variables, as the update can be done from another user (like an admin).
-
-		$user        = get_userdata( $user_id );
 		$flarum_user = $flarum->user( $old_user->user_login );
 
-		$flarum_user->attributes->username = $user->user_login;
-		$flarum_user->attributes->email    = $user->user_email;
-		$flarum_user->attributes->bio      = $user->user_description;
-		$flarum_user->attributes->nickname = $user->display_name;
+		$flarum_user->attributes->username = $userdata['user_login'];
+		$flarum_user->attributes->bio      = $userdata['description'];
+		$flarum_user->attributes->nickname = $userdata['display_name'];
 
 		if ( get_option( 'flarum_sso_plugin_update_user_avatar' ) ) {
 			$flarum_user->attributes->avatarUrl = get_avatar_url( $user_id, array( 'size' => 100 ) );
@@ -266,7 +263,7 @@ function main() {
 		$flarum_user->update();
 	}
 
-	add_action( 'profile_update', 'flarum_sso_update_details', 10, 2 );
+	add_action( 'profile_update', 'flarum_sso_update_details', 10, 3 );
 }
 
 if ( get_option( 'flarum_sso_plugin_active' ) ) {
