@@ -41,6 +41,6 @@ jobs:
         env:
           SVN_PASSWORD: ${{ secrets.WPORG_PASSWORD }}
           SVN_USERNAME: ${{ secrets.WPORG_USERNAME }}
-          SLUG: flarum-sso-wp-plugin
+          SLUG: flarum-sso
           BUILD_DIR: svn
           ASSETS_DIR: screenshot
