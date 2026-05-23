@@ -10,7 +10,7 @@
  * Plugin Name:       SSO for Flarum
  * Plugin URI:        https://github.com/maicol07/flarum-sso-wp-plugin
  * Description:       Plugin for your WordPress website to get the SSO extension working
- * Version:           2.2
+ * Version:           2.2.2
  * Author:            maicol07
  * Author URI:        https://maicol07.it
  * License:           GPL-2.0+
@@ -25,7 +25,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Current plugin version.
-const FLARUM_SSO_VERSION = '2.2';
+const FLARUM_SSO_VERSION = '2.2.2';
 
 // Plugin path.
 define( 'FLARUM_SSO_PATH', plugin_dir_path( __FILE__ ) );
