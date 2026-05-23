@@ -41,6 +41,6 @@ jobs:
         env:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-          SLUG: flarum-sso
+          SLUG: sso-flarum
           BUILD_DIR: svn
           ASSETS_DIR: screenshot
