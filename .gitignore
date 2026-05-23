@@ -23,9 +23,6 @@ node_modules/
 *.sqlite
 
 /vendor/
-composer.lock
-
-yarn.lock
 
 .idea
 
