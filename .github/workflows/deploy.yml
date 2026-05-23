@@ -30,8 +30,8 @@ jobs:
       - name: Install NPM dependencies
         run: npm install
 
-      - name: Make WP-CLI executable
-        run: chmod +x wp-cli.phar
+      - name: Download WP-CLI
+        run: curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
       - name: Run release build
         run: npm run release
