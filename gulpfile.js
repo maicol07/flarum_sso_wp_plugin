@@ -5,6 +5,7 @@ const {zip} = require('gulp-vinyl-zip');
 const files = [
 	'**/*',
 	'*',
+	'!cliff.toml',
 	'!composer.phar',
 	'!sso-flarum.zip',
 	'!wp-cli.phar',
