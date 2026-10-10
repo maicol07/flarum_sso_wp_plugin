@@ -7,6 +7,7 @@ const files = [
 	'*',
 	'!cliff.toml',
 	'!composer.phar',
+	'!rector.php',
 	'!sso-flarum.zip',
 	'!wp-cli.phar',
 	'!yarn-error.log',
