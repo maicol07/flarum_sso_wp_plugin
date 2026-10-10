@@ -313,7 +313,7 @@ class SSO_Flarum_Admin {
 	 * @return array
 	 */
 	public function flarum_sso_plugin_add_meta_to_admin_plugins_page( array $links, string $file ): array {
-		if ( strpos( $file, $this->plugin_name ) !== false ) {
+		if ( str_contains( $file, $this->plugin_name ) ) {
 			$settings_url = esc_url( get_admin_url() . 'options-general.php?page=sso-flarum-settings' );
 			$review_url   = esc_url( 'https://wordpress.org/support/plugin/sso-flarum/reviews/#new-post' );
 			$donate_url   = esc_url( 'https://www.paypal.me/maicol072001/10eur' );
