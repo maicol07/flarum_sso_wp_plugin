@@ -1,8 +1,22 @@
 name: Deploy to WordPress.org
 
+# Called by ci.yml once a release tag is created (a release made with GITHUB_TOKEN starts no
+# `release` workflow).
 on:
-  release:
-    types: [ published ]
+  workflow_call:
+    inputs:
+      tag:
+        description: Release tag to deploy
+        type: string
+        required: true
+    secrets:
+      SVN_USERNAME:
+        required: true
+      SVN_PASSWORD:
+        required: true
+
+permissions:
+  contents: read
 
 jobs:
   deploy:
@@ -10,6 +24,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.tag }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -42,5 +58,7 @@ jobs:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SLUG: sso-flarum
+          # Not from GITHUB_REF: this runs on the push to master.
+          VERSION: ${{ inputs.tag }}
           BUILD_DIR: svn
           ASSETS_DIR: screenshot
