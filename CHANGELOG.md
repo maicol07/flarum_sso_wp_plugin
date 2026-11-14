@@ -1,5 +1,19 @@
 # Changelog
 
+<a name="2.2.4"></a>
+## [2.2.4](https://github.com/maicol07/flarum_sso_wp_plugin/compare/2.2.3...2.2.4)
+
+> Released on November 14, 2026
+
+### 👷 CI changes
+
+- [`bc9fa48`](https://github.com/maicol07/flarum_sso_wp_plugin/commit/bc9fa485f3be54ebaf3a5694471795ca2a3fc1b0) 👷 move the CI to the maicol07/actions reusable workflows
+- [`f260c59`](https://github.com/maicol07/flarum_sso_wp_plugin/commit/f260c599788d3cbf3aab30a2d5c2b098e4e95bad) 👷 add Dependabot updates
+
+### Other changes
+
+- [`62c30b3`](https://github.com/maicol07/flarum_sso_wp_plugin/commit/62c30b3d4e05a3871f678adf7b300ec612c8a9eb) 🔧 skip the release commits in the changelog
+
 <a name="2.2.3"></a>
 ## [2.2.3](https://github.com/maicol07/flarum_sso_wp_plugin/compare/2.2.2...2.2.3)
 
@@ -137,10 +151,6 @@
 
 - [`8389102`](https://github.com/maicol07/flarum_sso_wp_plugin/commit/83891028dadc04ce98bc4cf94ad8a1198ea72ba2) 👷 Updated build script
 
-### Other changes
-
-- [`5093d45`](https://github.com/maicol07/flarum_sso_wp_plugin/commit/5093d452da1e780c89a4d633d154a43737ee7532) **release:** 2.1.1
-
 <a name="2.1"></a>
 ## [2.1](https://github.com/maicol07/flarum_sso_wp_plugin/compare/2.0...2.1)
 
@@ -173,7 +183,6 @@
 - [`95aed91`](https://github.com/maicol07/flarum_sso_wp_plugin/commit/95aed913edd08cc543ed1994d648f1a7aefa3865) Do not include docs and development packages
 - [`74d5c67`](https://github.com/maicol07/flarum_sso_wp_plugin/commit/74d5c67019f81ac0249493c6b265273a0d54713a) Do not include docs and development packages
 - [`700d7ae`](https://github.com/maicol07/flarum_sso_wp_plugin/commit/700d7aee81d22c8f4f4de3d64036e2c6433f7dd3) Removed lifetime option
-- [`c2bf954`](https://github.com/maicol07/flarum_sso_wp_plugin/commit/c2bf9549b47798f74d878521d5c82ec6a4db573b) **release:** 🔖 2.1
 
 <a name="2.0"></a>
 ## [2.0](https://github.com/maicol07/flarum_sso_wp_plugin/compare/1.2...2.0)

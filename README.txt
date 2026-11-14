@@ -4,7 +4,7 @@ Donate link: https://paypal.me/maicol072001/10eur
 Tags: flarum, sso, extension, plugin, php, authentication, forum, auth
 Requires at least: 5.8
 Tested up to: 7.0
-Stable tag: 2.2.1
+Stable tag: 2.2.4
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
