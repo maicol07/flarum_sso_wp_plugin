@@ -19,23 +19,23 @@ permissions:
 
 jobs:
   security:
-    uses: maicol07/actions/.github/workflows/security.yml@v1
+    uses: maicol07/actions/.github/workflows/security.yml@v2
 
   commit_lint:
-    uses: maicol07/actions/.github/workflows/commit-lint.yml@v1
+    uses: maicol07/actions/.github/workflows/commit-lint.yml@v2
 
   # Quality: not in release.needs until composer.lock is fixed (it needs PHP >= 8.3, but
   # config.platform pins 8.0, so composer install fails)
   rector:
-    uses: maicol07/actions/.github/workflows/php.yml@v1
+    uses: maicol07/actions/.github/workflows/php.yml@v2
     with:
       php_version: '8.5'
       run: vendor/bin/rector process --dry-run --no-progress-bar
 
   release:
     needs: [security]
-    if: github.event_name == 'push'
-    uses: maicol07/actions/.github/workflows/release.yml@v1
+    if: github.event_name == 'push' && !failure() && !cancelled()
+    uses: maicol07/actions/.github/workflows/release.yml@v2
     permissions:
       contents: write
       pull-requests: write
