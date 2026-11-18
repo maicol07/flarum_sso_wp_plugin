@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/maicol07/flarum_sso_wp_plugin#readme",
   "devDependencies": {
-	"del": "^6",
-	"gulp": "^4",
+	"del": "^9",
+	"gulp": "^5",
 	"gulp-vinyl-zip": "^2"
   }
 }
